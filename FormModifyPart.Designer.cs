@@ -75,12 +75,13 @@
             this.btnCancel_ModifyPart.TabIndex = 42;
             this.btnCancel_ModifyPart.Text = "Cancel";
             this.btnCancel_ModifyPart.UseVisualStyleBackColor = true;
+            this.btnCancel_ModifyPart.Click += new System.EventHandler(this.btnCancel_ModifyPart_Click);
             // 
             // labelMachineID_ModifyPart
             // 
             this.labelMachineID_ModifyPart.AutoSize = true;
             this.labelMachineID_ModifyPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMachineID_ModifyPart.Location = new System.Drawing.Point(165, 377);
+            this.labelMachineID_ModifyPart.Location = new System.Drawing.Point(133, 377);
             this.labelMachineID_ModifyPart.Name = "labelMachineID_ModifyPart";
             this.labelMachineID_ModifyPart.Size = new System.Drawing.Size(94, 20);
             this.labelMachineID_ModifyPart.TabIndex = 41;
@@ -100,7 +101,7 @@
             // 
             this.labelMax_ModifyPart.AutoSize = true;
             this.labelMax_ModifyPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMax_ModifyPart.Location = new System.Drawing.Point(219, 317);
+            this.labelMax_ModifyPart.Location = new System.Drawing.Point(187, 317);
             this.labelMax_ModifyPart.Name = "labelMax_ModifyPart";
             this.labelMax_ModifyPart.Size = new System.Drawing.Size(40, 20);
             this.labelMax_ModifyPart.TabIndex = 39;
@@ -110,7 +111,7 @@
             // 
             this.labelPriceCost_ModifyPart.AutoSize = true;
             this.labelPriceCost_ModifyPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPriceCost_ModifyPart.Location = new System.Drawing.Point(171, 255);
+            this.labelPriceCost_ModifyPart.Location = new System.Drawing.Point(139, 255);
             this.labelPriceCost_ModifyPart.Name = "labelPriceCost_ModifyPart";
             this.labelPriceCost_ModifyPart.Size = new System.Drawing.Size(88, 20);
             this.labelPriceCost_ModifyPart.TabIndex = 38;
@@ -120,7 +121,7 @@
             // 
             this.labelInventory_ModifyPart.AutoSize = true;
             this.labelInventory_ModifyPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelInventory_ModifyPart.Location = new System.Drawing.Point(183, 191);
+            this.labelInventory_ModifyPart.Location = new System.Drawing.Point(151, 191);
             this.labelInventory_ModifyPart.Name = "labelInventory_ModifyPart";
             this.labelInventory_ModifyPart.Size = new System.Drawing.Size(76, 20);
             this.labelInventory_ModifyPart.TabIndex = 37;
@@ -130,7 +131,7 @@
             // 
             this.labelName_ModifyPart.AutoSize = true;
             this.labelName_ModifyPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelName_ModifyPart.Location = new System.Drawing.Point(206, 129);
+            this.labelName_ModifyPart.Location = new System.Drawing.Point(174, 129);
             this.labelName_ModifyPart.Name = "labelName_ModifyPart";
             this.labelName_ModifyPart.Size = new System.Drawing.Size(53, 20);
             this.labelName_ModifyPart.TabIndex = 36;
@@ -140,7 +141,7 @@
             // 
             this.labelID_ModifyPart.AutoSize = true;
             this.labelID_ModifyPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelID_ModifyPart.Location = new System.Drawing.Point(233, 72);
+            this.labelID_ModifyPart.Location = new System.Drawing.Point(201, 72);
             this.labelID_ModifyPart.Name = "labelID_ModifyPart";
             this.labelID_ModifyPart.Size = new System.Drawing.Size(26, 20);
             this.labelID_ModifyPart.TabIndex = 35;
@@ -211,10 +212,12 @@
             this.radioBtnOutsourced_ModifyPart.TabStop = true;
             this.radioBtnOutsourced_ModifyPart.Text = "Outsourced";
             this.radioBtnOutsourced_ModifyPart.UseVisualStyleBackColor = true;
+            this.radioBtnOutsourced_ModifyPart.CheckedChanged += new System.EventHandler(this.radioBtnOutsourced_ModifyPart_CheckedChanged);
             // 
             // radioBtnInHouse_ModifyPart
             // 
             this.radioBtnInHouse_ModifyPart.AutoSize = true;
+            this.radioBtnInHouse_ModifyPart.Checked = true;
             this.radioBtnInHouse_ModifyPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioBtnInHouse_ModifyPart.Location = new System.Drawing.Point(251, 13);
             this.radioBtnInHouse_ModifyPart.Name = "radioBtnInHouse_ModifyPart";
@@ -223,6 +226,7 @@
             this.radioBtnInHouse_ModifyPart.TabStop = true;
             this.radioBtnInHouse_ModifyPart.Text = "In-House";
             this.radioBtnInHouse_ModifyPart.UseVisualStyleBackColor = true;
+            this.radioBtnInHouse_ModifyPart.CheckedChanged += new System.EventHandler(this.radioBtnInHouse_ModifyPart_CheckedChanged);
             // 
             // labelModifyPart_ModifyPart
             // 

@@ -16,5 +16,23 @@ namespace Products_and_Parts
         {
             InitializeComponent();
         }
+
+        private void radioBtnOutsourced_AddPart_CheckedChanged(object sender, EventArgs e)
+        {
+            // Handles changing the "Machine ID" lable to "Company Name" when the proper radio button is clicked
+            labelMachineID_AddPart.Text = "Company Name";
+        }
+
+        private void radioBtnInHouse_AddPart_CheckedChanged(object sender, EventArgs e)
+        {
+            // Handles changing the "Company Name" lable to "Machine" when the proper radio button is clicked
+            labelMachineID_AddPart.Text = "Machine ID";
+        }
+
+        private void btnCancel_AddPart_Click(object sender, EventArgs e)
+        {
+            // Closes the Add Part form when the "Close" button is clicked
+           this.Close();
+        }
     }
 }
