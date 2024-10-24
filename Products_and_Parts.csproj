@@ -58,11 +58,23 @@
     <Compile Include="FormAddPart.Designer.cs">
       <DependentUpon>FormAddPart.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAddProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddProduct.Designer.cs">
+      <DependentUpon>FormAddProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormModifyPart.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormModifyPart.Designer.cs">
       <DependentUpon>FormModifyPart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormModifyProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormModifyProduct.Designer.cs">
+      <DependentUpon>FormModifyProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,8 +84,14 @@
     <EmbeddedResource Include="FormAddPart.resx">
       <DependentUpon>FormAddPart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormAddProduct.resx">
+      <DependentUpon>FormAddProduct.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormModifyPart.resx">
       <DependentUpon>FormModifyPart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormModifyProduct.resx">
+      <DependentUpon>FormModifyProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

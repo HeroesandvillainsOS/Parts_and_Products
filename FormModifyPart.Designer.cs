@@ -259,7 +259,7 @@
             this.Controls.Add(this.radioBtnInHouse_ModifyPart);
             this.Controls.Add(this.labelModifyPart_ModifyPart);
             this.Name = "FormModifyPart";
-            this.Text = "FormModifyPart";
+            this.Text = "Part";
             this.ResumeLayout(false);
             this.PerformLayout();
 
