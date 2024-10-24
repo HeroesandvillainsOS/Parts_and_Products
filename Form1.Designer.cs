@@ -148,6 +148,7 @@
             this.btnAddParts_Main.TabIndex = 9;
             this.btnAddParts_Main.Text = "Add";
             this.btnAddParts_Main.UseVisualStyleBackColor = true;
+            this.btnAddParts_Main.Click += new System.EventHandler(this.btnAddParts_Main_Click);
             // 
             // btnModifyParts_Main
             // 
@@ -157,6 +158,7 @@
             this.btnModifyParts_Main.TabIndex = 10;
             this.btnModifyParts_Main.Text = "Modify";
             this.btnModifyParts_Main.UseVisualStyleBackColor = true;
+            this.btnModifyParts_Main.Click += new System.EventHandler(this.btnModifyParts_Main_Click);
             // 
             // btnDeleteParts_Main
             // 
@@ -184,6 +186,7 @@
             this.btnModifyProducts_Main.TabIndex = 13;
             this.btnModifyProducts_Main.Text = "Modify";
             this.btnModifyProducts_Main.UseVisualStyleBackColor = true;
+            this.btnModifyProducts_Main.Click += new System.EventHandler(this.btnModifyProducts_Main_Click);
             // 
             // btnAddProducts_Main
             // 
@@ -193,6 +196,7 @@
             this.btnAddProducts_Main.TabIndex = 12;
             this.btnAddProducts_Main.Text = "Add";
             this.btnAddProducts_Main.UseVisualStyleBackColor = true;
+            this.btnAddProducts_Main.Click += new System.EventHandler(this.btnAddProducts_Main_Click);
             // 
             // btnExit_Main
             // 
@@ -202,6 +206,7 @@
             this.btnExit_Main.TabIndex = 15;
             this.btnExit_Main.Text = "Exit";
             this.btnExit_Main.UseVisualStyleBackColor = true;
+            this.btnExit_Main.Click += new System.EventHandler(this.btnExit_Main_Click);
             // 
             // MainScreen
             // 

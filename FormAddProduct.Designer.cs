@@ -35,15 +35,15 @@
             this.btnSave_AddProduct = new System.Windows.Forms.Button();
             this.btnCancel_AddProduct = new System.Windows.Forms.Button();
             this.btnDelete_AddProduct = new System.Windows.Forms.Button();
-            this.btnAdd__AddProduct = new System.Windows.Forms.Button();
+            this.btnAdd_AddProduct = new System.Windows.Forms.Button();
             this.textBoxMin_AddProduct = new System.Windows.Forms.TextBox();
             this.labelMin_AddProduct = new System.Windows.Forms.Label();
             this.labelMax_AddProduct = new System.Windows.Forms.Label();
-            this.labelPriceCost__AddProduct = new System.Windows.Forms.Label();
+            this.labelPriceCost_AddProduct = new System.Windows.Forms.Label();
             this.labelInventory_AddProduct = new System.Windows.Forms.Label();
             this.labelName_AddProduct = new System.Windows.Forms.Label();
             this.labelID_AddProduct = new System.Windows.Forms.Label();
-            this.textBoxMax__AddProduct = new System.Windows.Forms.TextBox();
+            this.textBoxMax_AddProduct = new System.Windows.Forms.TextBox();
             this.textBoxPriceCost_AddProduct = new System.Windows.Forms.TextBox();
             this.textBoxInventory_AddProduct = new System.Windows.Forms.TextBox();
             this.textBoxName_AddProduct = new System.Windows.Forms.TextBox();
@@ -115,6 +115,7 @@
             this.btnCancel_AddProduct.TabIndex = 83;
             this.btnCancel_AddProduct.Text = "Cancel";
             this.btnCancel_AddProduct.UseVisualStyleBackColor = true;
+            this.btnCancel_AddProduct.Click += new System.EventHandler(this.btnCancel_AddProduct_Click);
             // 
             // btnDelete_AddProduct
             // 
@@ -126,15 +127,15 @@
             this.btnDelete_AddProduct.Text = "Delete";
             this.btnDelete_AddProduct.UseVisualStyleBackColor = true;
             // 
-            // btnAdd__AddProduct
+            // btnAdd_AddProduct
             // 
-            this.btnAdd__AddProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd__AddProduct.Location = new System.Drawing.Point(950, 334);
-            this.btnAdd__AddProduct.Name = "btnAdd__AddProduct";
-            this.btnAdd__AddProduct.Size = new System.Drawing.Size(75, 56);
-            this.btnAdd__AddProduct.TabIndex = 81;
-            this.btnAdd__AddProduct.Text = "Add";
-            this.btnAdd__AddProduct.UseVisualStyleBackColor = true;
+            this.btnAdd_AddProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdd_AddProduct.Location = new System.Drawing.Point(950, 334);
+            this.btnAdd_AddProduct.Name = "btnAdd_AddProduct";
+            this.btnAdd_AddProduct.Size = new System.Drawing.Size(75, 56);
+            this.btnAdd_AddProduct.TabIndex = 81;
+            this.btnAdd_AddProduct.Text = "Add";
+            this.btnAdd_AddProduct.UseVisualStyleBackColor = true;
             // 
             // textBoxMin_AddProduct
             // 
@@ -165,15 +166,15 @@
             this.labelMax_AddProduct.TabIndex = 78;
             this.labelMax_AddProduct.Text = "Max";
             // 
-            // labelPriceCost__AddProduct
+            // labelPriceCost_AddProduct
             // 
-            this.labelPriceCost__AddProduct.AutoSize = true;
-            this.labelPriceCost__AddProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPriceCost__AddProduct.Location = new System.Drawing.Point(45, 398);
-            this.labelPriceCost__AddProduct.Name = "labelPriceCost__AddProduct";
-            this.labelPriceCost__AddProduct.Size = new System.Drawing.Size(88, 20);
-            this.labelPriceCost__AddProduct.TabIndex = 77;
-            this.labelPriceCost__AddProduct.Text = "Price/Cost";
+            this.labelPriceCost_AddProduct.AutoSize = true;
+            this.labelPriceCost_AddProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPriceCost_AddProduct.Location = new System.Drawing.Point(45, 398);
+            this.labelPriceCost_AddProduct.Name = "labelPriceCost_AddProduct";
+            this.labelPriceCost_AddProduct.Size = new System.Drawing.Size(88, 20);
+            this.labelPriceCost_AddProduct.TabIndex = 77;
+            this.labelPriceCost_AddProduct.Text = "Price/Cost";
             // 
             // labelInventory_AddProduct
             // 
@@ -205,14 +206,14 @@
             this.labelID_AddProduct.TabIndex = 74;
             this.labelID_AddProduct.Text = "ID";
             // 
-            // textBoxMax__AddProduct
+            // textBoxMax_AddProduct
             // 
-            this.textBoxMax__AddProduct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxMax__AddProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxMax__AddProduct.Location = new System.Drawing.Point(102, 458);
-            this.textBoxMax__AddProduct.Name = "textBoxMax__AddProduct";
-            this.textBoxMax__AddProduct.Size = new System.Drawing.Size(104, 34);
-            this.textBoxMax__AddProduct.TabIndex = 73;
+            this.textBoxMax_AddProduct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxMax_AddProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxMax_AddProduct.Location = new System.Drawing.Point(102, 458);
+            this.textBoxMax_AddProduct.Name = "textBoxMax_AddProduct";
+            this.textBoxMax_AddProduct.Size = new System.Drawing.Size(104, 34);
+            this.textBoxMax_AddProduct.TabIndex = 73;
             // 
             // textBoxPriceCost_AddProduct
             // 
@@ -292,15 +293,15 @@
             this.Controls.Add(this.btnSave_AddProduct);
             this.Controls.Add(this.btnCancel_AddProduct);
             this.Controls.Add(this.btnDelete_AddProduct);
-            this.Controls.Add(this.btnAdd__AddProduct);
+            this.Controls.Add(this.btnAdd_AddProduct);
             this.Controls.Add(this.textBoxMin_AddProduct);
             this.Controls.Add(this.labelMin_AddProduct);
             this.Controls.Add(this.labelMax_AddProduct);
-            this.Controls.Add(this.labelPriceCost__AddProduct);
+            this.Controls.Add(this.labelPriceCost_AddProduct);
             this.Controls.Add(this.labelInventory_AddProduct);
             this.Controls.Add(this.labelName_AddProduct);
             this.Controls.Add(this.labelID_AddProduct);
-            this.Controls.Add(this.textBoxMax__AddProduct);
+            this.Controls.Add(this.textBoxMax_AddProduct);
             this.Controls.Add(this.textBoxPriceCost_AddProduct);
             this.Controls.Add(this.textBoxInventory_AddProduct);
             this.Controls.Add(this.textBoxName_AddProduct);
@@ -326,15 +327,15 @@
         private System.Windows.Forms.Button btnSave_AddProduct;
         private System.Windows.Forms.Button btnCancel_AddProduct;
         private System.Windows.Forms.Button btnDelete_AddProduct;
-        private System.Windows.Forms.Button btnAdd__AddProduct;
+        private System.Windows.Forms.Button btnAdd_AddProduct;
         private System.Windows.Forms.TextBox textBoxMin_AddProduct;
         private System.Windows.Forms.Label labelMin_AddProduct;
         private System.Windows.Forms.Label labelMax_AddProduct;
-        private System.Windows.Forms.Label labelPriceCost__AddProduct;
+        private System.Windows.Forms.Label labelPriceCost_AddProduct;
         private System.Windows.Forms.Label labelInventory_AddProduct;
         private System.Windows.Forms.Label labelName_AddProduct;
         private System.Windows.Forms.Label labelID_AddProduct;
-        private System.Windows.Forms.TextBox textBoxMax__AddProduct;
+        private System.Windows.Forms.TextBox textBoxMax_AddProduct;
         private System.Windows.Forms.TextBox textBoxPriceCost_AddProduct;
         private System.Windows.Forms.TextBox textBoxInventory_AddProduct;
         private System.Windows.Forms.TextBox textBoxName_AddProduct;
