@@ -15,6 +15,8 @@ namespace Products_and_Parts
         public FormAddPart()
         {
             InitializeComponent();
+            textBoxID_AddPart.ReadOnly = true;
+            textBoxID_AddPart.Text = Inventory.AllParts.Count.ToString();
         }
 
         private void radioBtnOutsourced_AddPart_CheckedChanged(object sender, EventArgs e)
