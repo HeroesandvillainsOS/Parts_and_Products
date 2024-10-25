@@ -15,6 +15,8 @@ namespace Products_and_Parts
         public FormAddPart()
         {
             InitializeComponent();
+            textBoxID_AddPart.ReadOnly = true;
+            textBoxID_AddPart.Text = Inventory.AllParts.Count.ToString();
         }
 
         private void radioBtnOutsourced_AddPart_CheckedChanged(object sender, EventArgs e)
@@ -33,6 +35,37 @@ namespace Products_and_Parts
         {
             // Closes the Add Part form when the "Close" button is clicked
            this.Close();
+        }
+
+        private void btnSave_AddPart_Click(object sender, EventArgs e)
+        {
+            // Creates a new Part item when the "Save" button is clicked,
+            // ... fetching the data the user has entered into the Add Part form
+
+            int newPartID = Convert.ToInt32(textBoxID_AddPart.Text);
+            string newName = textBoxName_AddPart.Text;
+            decimal newPrice = Convert.ToDecimal(textBoxPriceCost_AddPart.Text);
+            int newInstock = Convert.ToInt32(textBoxInventory_AddPart.Text);
+            int newMin = Convert.ToInt32(textBoxMin_AddPart.Text);
+            int newMax = Convert.ToInt32(textBoxMax_AddPart.Text);
+
+            Part newPart;
+
+            // Checks for whether the "Machine ID" or "Company Name" radio button ticked
+  
+            if (radioBtnInHouse_AddPart.Checked)
+            {
+                int newMachineID = Convert.ToInt32(textBoxMachineID_AddPart.Text);
+                newPart = new InHouse(newPartID, newName, newPrice, newInstock, newMin, newMax, newMachineID);
+            }
+            else
+            {
+                string newCompanyName = textBoxMachineID_AddPart.Text;
+                newPart = new Outsourced(newPartID, newName, newPrice, newInstock, newMin, newMax, newCompanyName); 
+            }
+
+            // Calls the AddPart method, which adds the new part to the AllParts Binding List
+            Inventory.AddPart(newPart);
         }
     }
 }

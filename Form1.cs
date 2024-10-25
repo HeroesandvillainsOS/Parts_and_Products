@@ -1,4 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Products_and_Parts
@@ -10,7 +17,7 @@ namespace Products_and_Parts
             InitializeComponent();
 
             // Loads test data into the Products and Parts data grids
-            dgvProducts.DataSource = Inventory.Product;
+            dgvProducts.DataSource = Inventory.Products;
             dgvParts.DataSource = Inventory.AllParts;
 
             // Data Grid settings
