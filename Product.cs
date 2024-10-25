@@ -12,8 +12,6 @@ namespace Products_and_Parts
         public int Min {  get; set; }
         public int Max { get; set; }
 
-        public static BindingList<Product> testProductData { get; set; } = new BindingList<Product>();
-
         // A static constructor for a one-time initialization of test data (will only generate once and not on every class instance)
 
         public Product(int productID, string name, decimal price, int inStock, int min, int max)

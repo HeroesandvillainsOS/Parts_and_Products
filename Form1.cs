@@ -13,11 +13,21 @@ namespace Products_and_Parts
             dgvProducts.DataSource = Inventory.Product;
             dgvParts.DataSource = Inventory.AllParts;
 
+            // Data Grid settings
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProducts.ReadOnly = true;
+            dgvProducts.MultiSelect = false;
 
             dgvParts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvParts.ReadOnly = true;
+            dgvParts.MultiSelect = false;
+        }
+
+        // Removes the default selection of the first row of the Data Grids
+        private void OnDataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvProducts.ClearSelection();
+            dgvParts.ClearSelection();
         }
 
         // The following methods handle exiting the program, closing forms, and navigating between forms

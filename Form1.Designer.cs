@@ -58,6 +58,7 @@
             this.dgvParts.RowTemplate.Height = 24;
             this.dgvParts.Size = new System.Drawing.Size(629, 337);
             this.dgvParts.TabIndex = 0;
+            this.dgvParts.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.OnDataBindingComplete);
             // 
             // dgvProducts
             // 
@@ -69,6 +70,7 @@
             this.dgvProducts.RowTemplate.Height = 24;
             this.dgvProducts.Size = new System.Drawing.Size(629, 337);
             this.dgvProducts.TabIndex = 1;
+            this.dgvProducts.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.OnDataBindingComplete);
             // 
             // labelInventoryManagementSystem_Main
             // 
