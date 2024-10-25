@@ -76,6 +76,11 @@
     <Compile Include="FormModifyProduct.Designer.cs">
       <DependentUpon>FormModifyProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="InHouse.cs" />
+    <Compile Include="Inventory.cs" />
+    <Compile Include="Outsourced.cs" />
+    <Compile Include="Part.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

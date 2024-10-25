@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Products_and_Parts
@@ -15,7 +8,19 @@ namespace Products_and_Parts
         public MainScreen()
         {
             InitializeComponent();
+
+            // Loads test data into the Products and Parts data grids
+            dgvProducts.DataSource = Inventory.Product;
+            dgvParts.DataSource = Inventory.AllParts;
+
+            dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProducts.ReadOnly = true;
+
+            dgvParts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvParts.ReadOnly = true;
         }
+
+        // The following methods handle exiting the program, closing forms, and navigating between forms
 
         private void btnAddParts_Main_Click(object sender, EventArgs e)
         {

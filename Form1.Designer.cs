@@ -52,7 +52,7 @@
             // 
             this.dgvParts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvParts.Location = new System.Drawing.Point(24, 149);
-            this.dgvParts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvParts.Margin = new System.Windows.Forms.Padding(4);
             this.dgvParts.Name = "dgvParts";
             this.dgvParts.RowHeadersWidth = 51;
             this.dgvParts.RowTemplate.Height = 24;
@@ -63,7 +63,7 @@
             // 
             this.dgvProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProducts.Location = new System.Drawing.Point(708, 149);
-            this.dgvProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvProducts.Margin = new System.Windows.Forms.Padding(4);
             this.dgvProducts.Name = "dgvProducts";
             this.dgvProducts.RowHeadersWidth = 51;
             this.dgvProducts.RowTemplate.Height = 24;
@@ -107,7 +107,7 @@
             // 
             this.btnSearchParts_Main.BackColor = System.Drawing.SystemColors.Control;
             this.btnSearchParts_Main.Location = new System.Drawing.Point(313, 102);
-            this.btnSearchParts_Main.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearchParts_Main.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearchParts_Main.Name = "btnSearchParts_Main";
             this.btnSearchParts_Main.Size = new System.Drawing.Size(85, 26);
             this.btnSearchParts_Main.TabIndex = 5;
@@ -117,7 +117,7 @@
             // btnSearchProducts_Main
             // 
             this.btnSearchProducts_Main.Location = new System.Drawing.Point(993, 104);
-            this.btnSearchProducts_Main.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearchProducts_Main.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearchProducts_Main.Name = "btnSearchProducts_Main";
             this.btnSearchProducts_Main.Size = new System.Drawing.Size(85, 26);
             this.btnSearchProducts_Main.TabIndex = 6;
@@ -230,7 +230,7 @@
             this.Controls.Add(this.dgvProducts);
             this.Controls.Add(this.dgvParts);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainScreen";
             this.Text = "Main Screen";
             ((System.ComponentModel.ISupportInitialize)(this.dgvParts)).EndInit();
