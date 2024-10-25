@@ -227,6 +227,7 @@
             this.btnSave_AddPart.TabIndex = 24;
             this.btnSave_AddPart.Text = "Save";
             this.btnSave_AddPart.UseVisualStyleBackColor = true;
+            this.btnSave_AddPart.Click += new System.EventHandler(this.btnSave_AddPart_Click);
             // 
             // textBoxMin_AddPart
             // 

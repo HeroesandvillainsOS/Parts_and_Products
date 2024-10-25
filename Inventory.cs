@@ -31,7 +31,12 @@ namespace Products_and_Parts
 
         public static void UpdateProduct(int productID, Product product) { }
 
-        public static void AddPart(Part part) { }
+        public static void AddPart(Part part)
+        {
+            // Adds a new part item to the AllParts Binding List,
+            // ... which displays the part on the Inventory form's Part data grid
+            Inventory.AllParts.Add(part);
+        }
       
         public static bool DeletePart(Part part) { return true; }
       
