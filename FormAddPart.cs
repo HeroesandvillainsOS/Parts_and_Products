@@ -15,6 +15,8 @@ namespace Products_and_Parts
         public FormAddPart()
         {
             InitializeComponent();
+
+            // Auto generates a Part ID in the Add Part form & makes the field readonly
             textBoxID_AddPart.ReadOnly = true;
             textBoxID_AddPart.Text = Inventory.AllParts.Count.ToString();
         }
