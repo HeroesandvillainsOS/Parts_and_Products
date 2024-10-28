@@ -79,9 +79,9 @@
             this.radioBtnOutsourced_AddPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioBtnOutsourced_AddPart.Location = new System.Drawing.Point(375, 14);
             this.radioBtnOutsourced_AddPart.Name = "radioBtnOutsourced_AddPart";
-            this.radioBtnOutsourced_AddPart.Size = new System.Drawing.Size(39, 22);
+            this.radioBtnOutsourced_AddPart.Size = new System.Drawing.Size(107, 22);
             this.radioBtnOutsourced_AddPart.TabIndex = 2;
-            this.radioBtnOutsourced_AddPart.Text = "S";
+            this.radioBtnOutsourced_AddPart.Text = "Outsourced";
             this.radioBtnOutsourced_AddPart.UseVisualStyleBackColor = true;
             this.radioBtnOutsourced_AddPart.CheckedChanged += new System.EventHandler(this.radioBtnOutsourced_AddPart_CheckedChanged);
             // 
