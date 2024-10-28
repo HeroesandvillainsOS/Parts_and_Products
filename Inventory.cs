@@ -55,7 +55,10 @@ namespace Products_and_Parts
 
         public static void AddProduct(Product product) { }
 
-        public static bool RemoveProduct(int productID) { return true; }
+        public static bool RemoveProduct(int productID)
+        {
+            return true;
+        }
 
         public static Product LookupProduct(int productID) { return null; }
 
@@ -105,7 +108,5 @@ namespace Products_and_Parts
             // Closes the program when the "Exit" button is clicked
             Application.Exit();
         }
-
-
     }
 }
