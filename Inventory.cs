@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Products_and_Parts
 {
@@ -53,7 +54,12 @@ namespace Products_and_Parts
             modifyProductForm.Show();
         }
 
-        public static void AddProduct(Product product) { }
+        public static void AddProduct(Product product)
+        {
+            // Adds a new Product item to the Products Binding List,
+            // ... which displays the Product on the Inventory form's Product data grid view
+            Products.Add(product);
+        }
 
         public static bool RemoveProduct(int productID)
         {
@@ -87,8 +93,9 @@ namespace Products_and_Parts
         public static void AddPart(Part part)
         {
             // Adds a new part item to the AllParts Binding List,
-            // ... which displays the part on the Inventory form's Part data grid
+            // ... which displays the part on the Inventory form's Part data grid view
             Inventory.AllParts.Add(part);
+            
         }
 
         public static bool DeletePart(Part part)

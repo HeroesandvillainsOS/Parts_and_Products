@@ -7,7 +7,6 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -104,7 +103,6 @@ namespace Products_and_Parts
                         else
                             return;
                     }
-
                 }
 
                 // Determines if the part selected is InHouse or Outsourced

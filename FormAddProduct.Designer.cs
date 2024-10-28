@@ -105,6 +105,7 @@
             this.btnSave_AddProduct.TabIndex = 84;
             this.btnSave_AddProduct.Text = "Save";
             this.btnSave_AddProduct.UseVisualStyleBackColor = true;
+            this.btnSave_AddProduct.Click += new System.EventHandler(this.btnSave_AddProduct_Click);
             // 
             // btnCancel_AddProduct
             // 
