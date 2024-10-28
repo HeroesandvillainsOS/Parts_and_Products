@@ -170,6 +170,7 @@
             this.btnDeleteParts_Main.TabIndex = 11;
             this.btnDeleteParts_Main.Text = "Delete";
             this.btnDeleteParts_Main.UseVisualStyleBackColor = true;
+            this.btnDeleteParts_Main.Click += new System.EventHandler(this.btnDeleteParts_Main_Click);
             // 
             // btnDeleteProducts_Main
             // 

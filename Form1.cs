@@ -1,7 +1,10 @@
-﻿using System;
+﻿// This script handles the logic for the main inventory form and its event handlers
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -41,36 +44,96 @@ namespace Products_and_Parts
 
         private void btnAddParts_Main_Click(object sender, EventArgs e)
         {
-            // Opens the Add Parts form when the "Add" button is clicked
-            FormAddPart addPartForm = new FormAddPart();
-            addPartForm.Show();
+            Inventory.OpenAddPartsForm();
         }
 
         private void btnModifyParts_Main_Click(object sender, EventArgs e)
         {
-            // Opens the Modify Parts form when the "Modify" button is clicked
-            FormModifyPart modifyPartForm = new FormModifyPart();
-            modifyPartForm.Show();
+            Inventory.OpenModifyPartsForm();
         }
 
         private void btnAddProducts_Main_Click(object sender, EventArgs e)
         {
-            // Opens the Add Products form when the "Add" button is clicked
-            FormAddProduct addProductForm = new FormAddProduct();
-            addProductForm.Show();
+            Inventory.OpenAddProductsForm();
         }
 
         private void btnModifyProducts_Main_Click(object sender, EventArgs e)
         {
-            // Opens the Modify Product form when the "Modify" button is clicked
-            FormModifyProduct modifyProductForm = new FormModifyProduct();
-            modifyProductForm.Show();
+            Inventory.OpenModifyProductsForm();
         }
 
         private void btnExit_Main_Click(object sender, EventArgs e)
         {
-            // Closes the program when the "Exit" button is clicked
-            Application.Exit();
+            Inventory.CloseInventoryForm();
+        }
+
+        // Handles the Delete Parts click event
+        private void btnDeleteParts_Main_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Retrieves the selected row's data
+                DataGridViewRow row = dgvParts.SelectedRows[0];
+                // Retrieves the values of each cell in the row to be able to create a "partToDelete" Part object
+                int selectedID = (int)row.Cells["PartID"].Value;
+                string selectedName = (string)row.Cells["Name"].Value;
+                decimal selectedPrice = (decimal)row.Cells["Price"].Value;
+                int selectedInStock = (int)row.Cells["InStock"].Value;
+                int selectedMin = (int)row.Cells["Min"].Value;
+                int selectedMax = (int)row.Cells["Max"].Value;
+                int selectedMachineID;
+                string selectedCompanyName;
+
+                // Determines if the part selected is InHouse or Outsourced
+                if (Inventory.AllParts[selectedID] is InHouse inHousePart)
+                {
+                    selectedMachineID = inHousePart.MachineID;
+                    Part partToDelete = new InHouse(selectedID, selectedName, selectedPrice, selectedInStock, selectedMin,
+                         selectedMax, selectedMachineID);
+                    // Checks if the part is allowed to be deleted
+                    bool canBeDeleted = Inventory.DeletePart(partToDelete);
+
+                    // Warns the user and allows them to delete the selected part
+                    if (canBeDeleted)
+                    {
+                        DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (result == DialogResult.Yes)
+                            dgvParts.Rows.RemoveAt(selectedID);
+                        else
+                            return;
+                    }
+
+                }
+
+                // Determines if the part selected is InHouse or Outsourced
+                else if (Inventory.AllParts[selectedID] is Outsourced outsourcedPart)
+                {
+                    selectedCompanyName = outsourcedPart.CompanyName;
+                    Part partToDelete = new Outsourced(selectedID, selectedName, selectedPrice, selectedInStock, selectedMin,
+                         selectedMax, selectedCompanyName);
+                    // checks if the part is allowed to be deleted
+                    bool canBeDeleted = Inventory.DeletePart(partToDelete);
+
+                    // Warns the user and allows them to delete the selected part
+                    if (canBeDeleted)
+                    {
+                        DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (result == DialogResult.Yes)
+                            dgvParts.Rows.RemoveAt(selectedID);
+                        else
+                            return;
+                    }
+
+                }
+            }
+           
+            // Occurs when the users tries to delete a part without actually selecting a part to delete
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Please select a Part to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

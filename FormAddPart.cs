@@ -1,4 +1,6 @@
-﻿using System;
+﻿// This script handles the logic for the Add Parts form
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,8 +17,11 @@ namespace Products_and_Parts
         public FormAddPart()
         {
             InitializeComponent();
+
+            // Auto generates a Part ID in the Add Part form & makes the field readonly
             textBoxID_AddPart.ReadOnly = true;
-            textBoxID_AddPart.Text = Inventory.AllParts.Count.ToString();
+            int newPartID = Inventory.takenPartIds.Max() + 1;
+            textBoxID_AddPart.Text = newPartID.ToString();
         }
 
         private void radioBtnOutsourced_AddPart_CheckedChanged(object sender, EventArgs e)
@@ -37,6 +42,7 @@ namespace Products_and_Parts
            this.Close();
         }
 
+        // Handles the Save button click event
         private void btnSave_AddPart_Click(object sender, EventArgs e)
         {
             // Creates a new Part item when the "Save" button is clicked,
@@ -66,6 +72,9 @@ namespace Products_and_Parts
 
             // Calls the AddPart method, which adds the new part to the AllParts Binding List
             Inventory.AddPart(newPart);
+
+            // Closes the Add Part form once a part is added
+            this.Close();
         }
     }
 }
