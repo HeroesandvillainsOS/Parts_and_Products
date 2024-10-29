@@ -59,6 +59,8 @@ namespace Products_and_Parts
                 textBoxName_AddProduct.BackColor = Color.OrangeRed;
             else if (textBoxName_AddProduct.Text.All(chr => char.IsLetter(chr)))
                 textBoxName_AddProduct.BackColor = default(Color);
+            else if (textBoxName_AddProduct.Text.Contains(" "))
+                textBoxName_AddProduct.BackColor = default(Color);
             else
                 textBoxName_AddProduct.BackColor = Color.OrangeRed;
         }

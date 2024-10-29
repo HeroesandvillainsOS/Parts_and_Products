@@ -1,29 +1,30 @@
 ﻿// This script handles the logic for the main inventory form and its event handlers
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Products_and_Parts
 {
     public partial class MainScreen : Form
     {
+        // The MainScreen form only runs in instances.
+        // Therefore, to access the current instance and its objects,
+        // the instance is made static and public and the dgv's are made public.
+        // To access them, use MainScreen.Instance.DgvProducts. ....
+        public static MainScreen Instance { get; private set; }
+        public DataGridView DgvProducts => dgvProducts;
+        public DataGridView DgvParts => dgvParts;
+
         public MainScreen()
         {
             InitializeComponent();
+            Instance = this;
 
             // Loads test data into the Products and Parts data grids
             dgvProducts.DataSource = Inventory.Products;
             dgvParts.DataSource = Inventory.AllParts;
 
-            // Data Grid settings
+            // Data Grid View settings
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProducts.ReadOnly = true;
             dgvProducts.MultiSelect = false;
@@ -40,17 +41,7 @@ namespace Products_and_Parts
             dgvParts.ClearSelection();
         }
 
-        // The following methods handle exiting the program, closing forms, and navigating between forms
-
-        private void btnAddParts_Main_Click(object sender, EventArgs e)
-        {
-            Inventory.OpenAddPartsForm();
-        }
-
-        private void btnModifyParts_Main_Click(object sender, EventArgs e)
-        {
-            Inventory.OpenModifyPartsForm();
-        }
+        // Events related to Products
 
         private void btnAddProducts_Main_Click(object sender, EventArgs e)
         {
@@ -59,15 +50,87 @@ namespace Products_and_Parts
 
         private void btnModifyProducts_Main_Click(object sender, EventArgs e)
         {
-            Inventory.OpenModifyProductsForm();
+            if (dgvProducts.SelectedRows.Count > 0)
+                Inventory.OpenModifyProductsForm();
+            else
+                MessageBox.Show("Please select a Product to modify.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private void btnExit_Main_Click(object sender, EventArgs e)
+        private void btnDeleteProducts_Main_Click(object sender, EventArgs e)
         {
-            Inventory.CloseInventoryForm();
+            try
+            {
+                // Retrieves the selected row's data
+                DataGridViewRow row = dgvProducts.SelectedRows[0];
+                // Retrieves the value of the selected row's Product ID to pass to the RemoveProduct method
+                int selectedID = (int)row.Cells["ProductID"].Value;
+
+                // Checks if the part is allowed to be deleted
+                bool canBeDeleted = Inventory.RemoveProduct(selectedID);
+
+                // Warns the user and allows them to delete the selected part
+                if (canBeDeleted)
+                {
+                    DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Product?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.OK)
+                        dgvProducts.Rows.RemoveAt(selectedID);
+                    else
+                        return;
+                }
+                else
+                    MessageBox.Show("An invalid Product has been selected for deletion. Please try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            // Occurs when the users tries to delete a product without actually selecting a product to delete
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Please select a Product to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        // Handles the Delete Parts click event
+        // Searches the Products Inventory list. Highlights the first partial name match if found.
+        // Returns a warning message if a partial match for a product cannnot be found
+        private void btnSearchProducts_Main_Click(Object sender, EventArgs e)
+        {
+            string userInput = textBoxSearchProducts_Main.Text;
+            // Converts userInput to lowercase
+            userInput = userInput.ToLower();
+            bool matchFound = false;
+
+            for (int i = 0; i < Inventory.Products.Count; i++)
+            {
+                var product = Inventory.Products[i];
+                // Converts product name to lowercase
+                string lowerCaseProductName = product.Name.ToLower();
+
+                if (lowerCaseProductName.Contains(userInput))
+                {
+                    dgvProducts.ClearSelection();
+                    dgvProducts.Rows[i].Selected = true;
+                    matchFound = true;
+                    break;
+                }
+            }
+            if (!matchFound)
+                MessageBox.Show("No Products matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
+                   MessageBoxIcon.Warning);
+        }
+
+        // Events related to Parts
+
+        private void btnAddParts_Main_Click(object sender, EventArgs e)
+        {
+            Inventory.OpenAddPartsForm();
+        }
+
+        public void btnModifyParts_Main_Click(object sender, EventArgs e)
+        {
+            if (dgvParts.SelectedRows.Count > 0)
+                Inventory.OpenModifyPartsForm();
+            else
+                MessageBox.Show("Please select a Product to modify.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        
         private void btnDeleteParts_Main_Click(object sender, EventArgs e)
         {
             try
@@ -135,39 +198,6 @@ namespace Products_and_Parts
             }
         }
 
-        // Handles the Delete Product click event
-        private void btnDeleteProducts_Main_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Retrieves the selected row's data
-                DataGridViewRow row = dgvProducts.SelectedRows[0];
-                // Retrieves the value of the selected row's Product ID to pass to the RemoveProduct method
-                int selectedID = (int)row.Cells["ProductID"].Value;
-
-                // Checks if the part is allowed to be deleted
-                bool canBeDeleted = Inventory.RemoveProduct(selectedID);
-
-                // Warns the user and allows them to delete the selected part
-                if (canBeDeleted)
-                {
-                    DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Product?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-                    if (result == DialogResult.OK)
-                        dgvProducts.Rows.RemoveAt(selectedID);
-                    else
-                        return;
-                }
-                else
-                    MessageBox.Show("An invalid Product has been selected for deletion. Please try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            // Occurs when the users tries to delete a product without actually selecting a product to delete
-            catch (ArgumentOutOfRangeException)
-            {
-                MessageBox.Show("Please select a Product to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         // Searches the Parts Inventory list. Highlights the first partial name match if found.
         // Returns a warning message if a partial match for a part cannot found
         private void btnSearchParts_Main_Click(object sender, EventArgs e)
@@ -175,7 +205,7 @@ namespace Products_and_Parts
             string userInput = textBoxSearchParts_Main.Text;
             // converts userInput to lower case
             userInput = userInput.ToLower();
-            bool matchFound = false; 
+            bool matchFound = false;
 
             for (int i = 0; i < Inventory.AllParts.Count; i++)
             {
@@ -193,37 +223,16 @@ namespace Products_and_Parts
                 }
             }
 
-            if (!matchFound) 
-                MessageBox.Show("No Parts matching the search criteria could be found.", "Warning", MessageBoxButtons.OK, 
-                    MessageBoxIcon.Warning);  
+            if (!matchFound)
+                MessageBox.Show("No Parts matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
         }
 
-        // Searches the Products Inventory list. Highlights the first partial name match if found.
-        // Returns a warning message if a partial match for a product cannnot be found
-        private void btnSearchProducts_Main_Click(Object sender, EventArgs e)
+        // General Events
+
+        private void btnExit_Main_Click(object sender, EventArgs e)
         {
-            string userInput = textBoxSearchProducts_Main.Text;
-            // Converts userInput to lowercase
-            userInput = userInput.ToLower();
-            bool matchFound = false;
-
-            for(int i = 0; i < Inventory.Products.Count; i++)
-            {
-                var product = Inventory.Products[i];
-                // Converts product name to lowercase
-                string lowerCaseProductName = product.Name.ToLower();
-
-                if(lowerCaseProductName.Contains(userInput))
-                {
-                    dgvProducts.ClearSelection();
-                    dgvProducts.Rows[i].Selected = true;
-                    matchFound = true;
-                    break;
-                }
-            }
-            if (!matchFound)
-                MessageBox.Show("No Products matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
-                   MessageBoxIcon.Warning);
+            Inventory.CloseInventoryForm();
         }
     }
 }

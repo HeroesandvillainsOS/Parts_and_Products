@@ -1,12 +1,9 @@
-﻿// This script handles the overall logic for the Inventory and the Main Inventory form.
-// Acts as a master classes for referencing the Products and Parts related classes, and closing the application.
+﻿// This script handles the overall logic for the Main Inventory form.
+// Acts as a master class for referencing the Products and Parts related classes, and closing the application.
 
-using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace Products_and_Parts
 {
@@ -19,14 +16,15 @@ namespace Products_and_Parts
 
         public static List<int> takenProductIds = new List<int>();
 
+        // Adds test data to the Products & AllParts Binding Lists
         static Inventory()
         {
-            // Represents the complete list of Products
+            // Represents the initial list of Products
             Products.Add(new Product(0, "Acer Laptop", 899.99m, 10, 2, 20));
             Products.Add(new Product(1, "Vizio Television", 999.99m, 8, 1, 10));
-            Products.Add(new Product(2, "Apple iPhone 18", 799.99m, 6, 4, 15));
+            Products.Add(new Product(2, "Apple iPhone", 799.99m, 6, 4, 15));
 
-            // Represents the complete list of Parts
+            // Represents the initial list of Parts
             AllParts.Add(new InHouse(0, "Power Supply", 299.99m, 15, 8, 30, 00100));
             AllParts.Add(new InHouse(1, "Battery", 49.99m, 3, 1, 5, 00200));
             AllParts.Add(new Outsourced(2, "Glass Display", 199.99m, 5, 1, 6, "Apple"));
@@ -110,7 +108,49 @@ namespace Products_and_Parts
             return true;
         }
 
-        public static Part LookupPart(int partID) { return null; }
+        public static Part LookupPart(int partID)
+        {
+            int foundPartID;
+            string foundName;
+            decimal foundPrice;
+            int foundInStock;
+            int foundMin;
+            int foundMax;
+            int foundMachineID;
+            string foundCompanyName;
+
+            foreach(Part part in Inventory.AllParts)
+            {
+                // Checks to see if the passed Part ID matches a Part in the All Parts List
+                if (partID == part.PartID)
+                {
+                    foundPartID = partID;
+                    foundName = part.Name;
+                    foundPrice = part.Price;
+                    foundInStock = part.InStock;
+                    foundMin = part.Min;
+                    foundMax = part.Max;
+
+                    // Checks to determine if the part is InHouse or Outsourced
+
+                    if (part is InHouse inHousePart)
+                    {
+                        foundMachineID = inHousePart.MachineID;
+                        Part foundPart = new InHouse(foundPartID, foundName, foundPrice, foundInStock, foundMin, foundMax,
+                            foundMachineID);
+                        return foundPart;
+                    }
+                    else if (part is Outsourced outsourcedPart)
+                    {
+                        foundCompanyName = outsourcedPart.CompanyName;
+                        Part foundPart = new Outsourced(foundPartID, foundName, foundPrice, foundInStock, foundMin, foundMax,
+                            foundCompanyName);
+                        return foundPart;
+                    }
+                }
+            }
+            return null;
+        }
 
         public static void UpdatePart(int partID, Part part) { }
 
