@@ -27,7 +27,7 @@ namespace Products_and_Parts
             // Sets the default color of the Add Part text boxes
             textBoxName_AddPart.BackColor = Color.OrangeRed;
             textBoxInventory_AddPart.BackColor = Color.OrangeRed;
-            textBoxPriceCost_AddPart.BackColor= Color.OrangeRed;
+            textBoxPriceCost_AddPart.BackColor = Color.OrangeRed;
             textBoxMax_AddPart.BackColor = Color.OrangeRed;
             textBoxMin_AddPart.BackColor = Color.OrangeRed;
             textBoxMachineID_AddPart.BackColor = Color.OrangeRed;
@@ -48,7 +48,7 @@ namespace Products_and_Parts
         private void btnCancel_AddPart_Click(object sender, EventArgs e)
         {
             // Closes the Add Part form when the "Close" button is clicked
-           this.Close();
+            this.Close();
         }
 
         // Handles the Save button click event
@@ -67,7 +67,7 @@ namespace Products_and_Parts
             Part newPart;
 
             // Checks for whether the "Machine ID" or "Company Name" radio button ticked
-  
+
             if (radioBtnInHouse_AddPart.Checked)
             {
                 int newMachineID = Convert.ToInt32(textBoxMachineID_AddPart.Text);
@@ -76,7 +76,7 @@ namespace Products_and_Parts
             else
             {
                 string newCompanyName = textBoxMachineID_AddPart.Text;
-                newPart = new Outsourced(newPartID, newName, newPrice, newInstock, newMin, newMax, newCompanyName); 
+                newPart = new Outsourced(newPartID, newName, newPrice, newInstock, newMin, newMax, newCompanyName);
             }
 
             // Calls the AddPart method, which adds the new part to the AllParts Binding List
@@ -104,7 +104,7 @@ namespace Products_and_Parts
         {
             int parsedValue;
 
-            if(int.TryParse(textBoxInventory_AddPart.Text, out parsedValue))
+            if (int.TryParse(textBoxInventory_AddPart.Text, out parsedValue))
                 textBoxInventory_AddPart.BackColor = default(Color);
             else
                 textBoxInventory_AddPart.BackColor = Color.OrangeRed;
@@ -117,7 +117,7 @@ namespace Products_and_Parts
             if (double.TryParse(textBoxPriceCost_AddPart.Text, out parsedValue))
                 textBoxPriceCost_AddPart.BackColor = default(Color);
             else
-                textBoxPriceCost_AddPart.BackColor = Color.OrangeRed;    
+                textBoxPriceCost_AddPart.BackColor = Color.OrangeRed;
         }
 
         private void textBoxMax_AddPart_TextChanged(object sender, EventArgs e)

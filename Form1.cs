@@ -23,7 +23,7 @@ namespace Products_and_Parts
             dgvProducts.DataSource = Inventory.Products;
             dgvParts.DataSource = Inventory.AllParts;
 
-            // Data Grid settings
+            // Data Grid View settings
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProducts.ReadOnly = true;
             dgvProducts.MultiSelect = false;
@@ -49,7 +49,10 @@ namespace Products_and_Parts
 
         private void btnModifyParts_Main_Click(object sender, EventArgs e)
         {
-            Inventory.OpenModifyPartsForm();
+            if (dgvParts.SelectedRows.Count > 0)
+                Inventory.OpenModifyPartsForm();
+            else
+                MessageBox.Show("Please select a Product to modify.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnAddProducts_Main_Click(object sender, EventArgs e)
@@ -59,7 +62,10 @@ namespace Products_and_Parts
 
         private void btnModifyProducts_Main_Click(object sender, EventArgs e)
         {
-            Inventory.OpenModifyProductsForm();
+            if (dgvProducts.SelectedRows.Count > 0)
+                Inventory.OpenModifyProductsForm();
+            else
+                MessageBox.Show("Please select a Product to modify.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnExit_Main_Click(object sender, EventArgs e)
@@ -175,7 +181,7 @@ namespace Products_and_Parts
             string userInput = textBoxSearchParts_Main.Text;
             // converts userInput to lower case
             userInput = userInput.ToLower();
-            bool matchFound = false; 
+            bool matchFound = false;
 
             for (int i = 0; i < Inventory.AllParts.Count; i++)
             {
@@ -193,9 +199,9 @@ namespace Products_and_Parts
                 }
             }
 
-            if (!matchFound) 
-                MessageBox.Show("No Parts matching the search criteria could be found.", "Warning", MessageBoxButtons.OK, 
-                    MessageBoxIcon.Warning);  
+            if (!matchFound)
+                MessageBox.Show("No Parts matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
         }
 
         // Searches the Products Inventory list. Highlights the first partial name match if found.
@@ -207,13 +213,13 @@ namespace Products_and_Parts
             userInput = userInput.ToLower();
             bool matchFound = false;
 
-            for(int i = 0; i < Inventory.Products.Count; i++)
+            for (int i = 0; i < Inventory.Products.Count; i++)
             {
                 var product = Inventory.Products[i];
                 // Converts product name to lowercase
                 string lowerCaseProductName = product.Name.ToLower();
 
-                if(lowerCaseProductName.Contains(userInput))
+                if (lowerCaseProductName.Contains(userInput))
                 {
                     dgvProducts.ClearSelection();
                     dgvProducts.Rows[i].Selected = true;
