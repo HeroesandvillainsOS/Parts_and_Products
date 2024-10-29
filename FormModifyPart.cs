@@ -5,10 +5,12 @@ namespace Products_and_Parts
 {
     public partial class FormModifyPart : Form
     {
+        // Sets the inital values of the Modify Parts text boxes
         public FormModifyPart()
         {
             InitializeComponent();
             
+            // Gets the currently selected row and its values
             var selectedRow = MainScreen.Instance.DgvParts.SelectedRows[0];
             int selectedPartID = (int)selectedRow.Cells["PartID"].Value;
             string selectedName = (string)selectedRow.Cells["Name"].Value;
@@ -20,7 +22,6 @@ namespace Products_and_Parts
             string selectedCompanyName;
 
             // Uses the Part LookUp method to determine if the Part is InHouse or Outsourced
-
             Part part = Inventory.LookupPart(selectedPartID);
 
             if (part is InHouse inHousePart)
@@ -29,7 +30,8 @@ namespace Products_and_Parts
                 selectedMachineID = inHousePart.MachineID;
                 // Ticks the InHouse radio button
                 radioBtnInHouse_ModifyPart.Enabled = true;
-                // Sets the text box values
+                radioBtnOutsourced_ModifyPart.Enabled = false;
+                // Sets the Modify Part text boxes to the values of the currently selected Part
                 textBoxID_ModifyPart.Text = selectedPartID.ToString();
                 textBoxName_ModifyPart.Text = selectedName;
                 textBoxPriceCost_ModifyPart.Text = selectedPrice.ToString();
@@ -45,6 +47,7 @@ namespace Products_and_Parts
                 selectedCompanyName = outsourcedPart.CompanyName;
                 // Ticks the Outsourced radio button
                 radioBtnOutsourced_ModifyPart.Enabled = true;
+                radioBtnInHouse_ModifyPart.Enabled= false;
                 // Sets the text box values
                 textBoxID_ModifyPart.Text = selectedPartID.ToString();
                 textBoxName_ModifyPart.Text = selectedName;

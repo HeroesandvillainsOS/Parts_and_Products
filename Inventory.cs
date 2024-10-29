@@ -22,7 +22,7 @@ namespace Products_and_Parts
             // Represents the initial list of Products
             Products.Add(new Product(0, "Acer Laptop", 899.99m, 10, 2, 20));
             Products.Add(new Product(1, "Vizio Television", 999.99m, 8, 1, 10));
-            Products.Add(new Product(2, "Apple iPhone 18", 799.99m, 6, 4, 15));
+            Products.Add(new Product(2, "Apple iPhone", 799.99m, 6, 4, 15));
 
             // Represents the initial list of Parts
             AllParts.Add(new InHouse(0, "Power Supply", 299.99m, 15, 8, 30, 00100));
