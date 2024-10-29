@@ -94,6 +94,8 @@ namespace Products_and_Parts
                 textBoxName_AddPart.BackColor = Color.OrangeRed;
             else if (textBoxName_AddPart.Text.All(chr => char.IsLetter(chr)))
                 textBoxName_AddPart.BackColor = default(Color);
+            else if (textBoxName_AddPart.Text.Contains(" "))
+                textBoxName_AddPart.BackColor = default(Color);
             else
                 textBoxName_AddPart.BackColor = Color.OrangeRed;
         }
@@ -154,6 +156,8 @@ namespace Products_and_Parts
                 if (String.IsNullOrEmpty(textBoxMachineID_AddPart.Text))
                     textBoxMachineID_AddPart.BackColor = Color.OrangeRed;
                 else if (textBoxMachineID_AddPart.Text.All(chr => char.IsLetter(chr)))
+                    textBoxMachineID_AddPart.BackColor = default(Color);
+                else if (textBoxMachineID_AddPart.Text.Contains(" "))
                     textBoxMachineID_AddPart.BackColor = default(Color);
                 else
                     textBoxMachineID_AddPart.BackColor = Color.OrangeRed;
