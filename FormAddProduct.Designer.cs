@@ -146,6 +146,7 @@
             this.textBoxMin_AddProduct.Name = "textBoxMin_AddProduct";
             this.textBoxMin_AddProduct.Size = new System.Drawing.Size(104, 34);
             this.textBoxMin_AddProduct.TabIndex = 80;
+            this.textBoxMin_AddProduct.TextChanged += new System.EventHandler(this.textBoxMin_AddProduct_TextChanged);
             // 
             // labelMin_AddProduct
             // 
@@ -215,6 +216,7 @@
             this.textBoxMax_AddProduct.Name = "textBoxMax_AddProduct";
             this.textBoxMax_AddProduct.Size = new System.Drawing.Size(104, 34);
             this.textBoxMax_AddProduct.TabIndex = 73;
+            this.textBoxMax_AddProduct.TextChanged += new System.EventHandler(this.textBoxMax_AddProduct_TextChanged);
             // 
             // textBoxPriceCost_AddProduct
             // 
@@ -224,6 +226,7 @@
             this.textBoxPriceCost_AddProduct.Name = "textBoxPriceCost_AddProduct";
             this.textBoxPriceCost_AddProduct.Size = new System.Drawing.Size(177, 34);
             this.textBoxPriceCost_AddProduct.TabIndex = 72;
+            this.textBoxPriceCost_AddProduct.TextChanged += new System.EventHandler(this.textBoxPriceCost_AddProduct_TextChanged);
             // 
             // textBoxInventory_AddProduct
             // 
@@ -233,6 +236,7 @@
             this.textBoxInventory_AddProduct.Name = "textBoxInventory_AddProduct";
             this.textBoxInventory_AddProduct.Size = new System.Drawing.Size(177, 34);
             this.textBoxInventory_AddProduct.TabIndex = 71;
+            this.textBoxInventory_AddProduct.TextChanged += new System.EventHandler(this.textBoxInventory_AddProduct_TextChanged);
             // 
             // textBoxName_AddProduct
             // 
@@ -242,6 +246,7 @@
             this.textBoxName_AddProduct.Name = "textBoxName_AddProduct";
             this.textBoxName_AddProduct.Size = new System.Drawing.Size(177, 34);
             this.textBoxName_AddProduct.TabIndex = 70;
+            this.textBoxName_AddProduct.TextChanged += new System.EventHandler(this.textBoxName_AddProduct_TextChanged);
             // 
             // textBoxID_AddProduct
             // 
