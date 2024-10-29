@@ -1,23 +1,24 @@
 ﻿// This script handles the logic for the main inventory form and its event handlers
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Products_and_Parts
 {
     public partial class MainScreen : Form
     {
+        // The MainScreen form only runs in instances.
+        // Therefore, to access the current instance and its objects,
+        // the instance is made static and public and the dgv's are made public.
+        // To access them, use MainScreen.Instance.DgvProducts. ....
+        public static MainScreen Instance { get; private set; }
+        public DataGridView DgvProducts => dgvProducts;
+        public DataGridView DgvParts => dgvParts;
+
         public MainScreen()
         {
             InitializeComponent();
+            Instance = this;
 
             // Loads test data into the Products and Parts data grids
             dgvProducts.DataSource = Inventory.Products;
@@ -122,17 +123,12 @@ namespace Products_and_Parts
             Inventory.OpenAddPartsForm();
         }
 
-        private void btnModifyParts_Main_Click(object sender, EventArgs e)
+        public void btnModifyParts_Main_Click(object sender, EventArgs e)
         {
             if (dgvParts.SelectedRows.Count > 0)
                 Inventory.OpenModifyPartsForm();
             else
                 MessageBox.Show("Please select a Product to modify.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
-        private void btnExit_Main_Click(object sender, EventArgs e)
-        {
-            Inventory.CloseInventoryForm();
         }
         
         private void btnDeleteParts_Main_Click(object sender, EventArgs e)
@@ -230,6 +226,13 @@ namespace Products_and_Parts
             if (!matchFound)
                 MessageBox.Show("No Parts matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
+        }
+
+        // General Events
+
+        private void btnExit_Main_Click(object sender, EventArgs e)
+        {
+            Inventory.CloseInventoryForm();
         }
     }
 }
