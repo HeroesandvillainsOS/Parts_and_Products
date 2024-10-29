@@ -115,6 +115,7 @@
             this.btnSearchParts_Main.TabIndex = 5;
             this.btnSearchParts_Main.Text = "Search";
             this.btnSearchParts_Main.UseVisualStyleBackColor = false;
+            this.btnSearchParts_Main.Click += new System.EventHandler(this.btnSearchParts_Main_Click);
             // 
             // btnSearchProducts_Main
             // 
@@ -125,6 +126,7 @@
             this.btnSearchProducts_Main.TabIndex = 6;
             this.btnSearchProducts_Main.Text = "Search";
             this.btnSearchProducts_Main.UseVisualStyleBackColor = true;
+            this.btnSearchProducts_Main.Click += new System.EventHandler(this.btnSearchProducts_Main_Click);
             // 
             // textBoxSearchParts_Main
             // 

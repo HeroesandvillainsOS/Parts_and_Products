@@ -135,7 +135,7 @@ namespace Products_and_Parts
             }
         }
 
-        public void btnDeleteProducts_Main_Click(object sender, EventArgs e)
+        private void btnDeleteProducts_Main_Click(object sender, EventArgs e)
         {
             try
             {
@@ -157,12 +157,63 @@ namespace Products_and_Parts
                     else
                         return;
                 }
+                else
+                    MessageBox.Show("An invalid Product has been selected for deletion. Please try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             // Occurs when the users tries to delete a product without actually selecting a product to delete
             catch (ArgumentOutOfRangeException)
             {
                 MessageBox.Show("Please select a Product to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-}
+        }
+
+        // Searches the Parts Inventory list. Highlights the first partial name match if found.
+        // Returns a warning message if a partial match for the part cannot found
+        private void btnSearchParts_Main_Click(object sender, EventArgs e)
+        {
+            string userInput = textBoxSearchParts_Main.Text;
+            bool matchFound = false; // Flag to track if a match was found
+
+            for (int i = 0; i < Inventory.AllParts.Count; i++)
+            {
+                var part = Inventory.AllParts[i];
+
+                if (part.Name.Contains(userInput))
+                {
+                    dgvParts.ClearSelection();
+                    dgvParts.Rows[i].Selected = true;
+                    matchFound = true;
+                    break;
+                }
+            }
+
+            if (!matchFound) 
+                MessageBox.Show("No Parts matching the search criteria could be found.", "Warning", MessageBoxButtons.OK, 
+                    MessageBoxIcon.Warning);  
+        }
+
+        // Searches the Products Inventory list. Highlights the first partial name match if found.
+        // Returns a warning message if a partial match for the product cannnot be found
+        private void btnSearchProducts_Main_Click(Object sender, EventArgs e)
+        {
+            string userInput = textBoxSearchProducts_Main.Text;
+            bool matchFound = false;
+
+            for(int i = 0; i < Inventory.Products.Count; i++)
+            {
+                var product = Inventory.Products[i];
+
+                if(product.Name.Contains(userInput))
+                {
+                    dgvProducts.ClearSelection();
+                    dgvProducts.Rows[i].Selected = true;
+                    matchFound = true;
+                    break;
+                }
+            }
+            if (!matchFound)
+                MessageBox.Show("No Products matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
+                   MessageBoxIcon.Warning);
+        }
     }
 }

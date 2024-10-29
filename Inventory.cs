@@ -63,7 +63,11 @@ namespace Products_and_Parts
 
         public static bool RemoveProduct(int productID)
         {
-            return true;
+            // Ensures the app fails gracefully in the event an invalid Product (index) is (somehow) selected 
+            if (productID >= 0)
+                return true;
+            else 
+                return false;
         }
 
         public static Product LookupProduct(int productID) { return null; }
