@@ -102,6 +102,7 @@
             this.textBoxName_AddPart.Name = "textBoxName_AddPart";
             this.textBoxName_AddPart.Size = new System.Drawing.Size(177, 34);
             this.textBoxName_AddPart.TabIndex = 9;
+            this.textBoxName_AddPart.TextChanged += new System.EventHandler(this.textBoxName_AddPart_TextChanged);
             // 
             // textBoxInventory_AddPart
             // 
@@ -111,6 +112,7 @@
             this.textBoxInventory_AddPart.Name = "textBoxInventory_AddPart";
             this.textBoxInventory_AddPart.Size = new System.Drawing.Size(177, 34);
             this.textBoxInventory_AddPart.TabIndex = 10;
+            this.textBoxInventory_AddPart.TextChanged += new System.EventHandler(this.textBoxInventory_AddPart_TextChanged);
             // 
             // textBoxPriceCost_AddPart
             // 
@@ -120,6 +122,7 @@
             this.textBoxPriceCost_AddPart.Name = "textBoxPriceCost_AddPart";
             this.textBoxPriceCost_AddPart.Size = new System.Drawing.Size(177, 34);
             this.textBoxPriceCost_AddPart.TabIndex = 11;
+            this.textBoxPriceCost_AddPart.TextChanged += new System.EventHandler(this.textBoxPriceCost_AddPart_TextChanged);
             // 
             // textBoxMax_AddPart
             // 
@@ -129,6 +132,7 @@
             this.textBoxMax_AddPart.Name = "textBoxMax_AddPart";
             this.textBoxMax_AddPart.Size = new System.Drawing.Size(104, 34);
             this.textBoxMax_AddPart.TabIndex = 12;
+            this.textBoxMax_AddPart.TextChanged += new System.EventHandler(this.textBoxMax_AddPart_TextChanged);
             // 
             // textBoxMachineID_AddPart
             // 
@@ -138,6 +142,7 @@
             this.textBoxMachineID_AddPart.Name = "textBoxMachineID_AddPart";
             this.textBoxMachineID_AddPart.Size = new System.Drawing.Size(177, 34);
             this.textBoxMachineID_AddPart.TabIndex = 14;
+            this.textBoxMachineID_AddPart.TextChanged += new System.EventHandler(this.textBoxMachineID_AddPart_TextChanged);
             // 
             // labelID_AddPart
             // 
@@ -237,6 +242,7 @@
             this.textBoxMin_AddPart.Name = "textBoxMin_AddPart";
             this.textBoxMin_AddPart.Size = new System.Drawing.Size(104, 34);
             this.textBoxMin_AddPart.TabIndex = 25;
+            this.textBoxMin_AddPart.TextChanged += new System.EventHandler(this.textBoxMin_AddPart_TextChanged);
             // 
             // FormAddPart
             // 
