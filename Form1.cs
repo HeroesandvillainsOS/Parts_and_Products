@@ -96,9 +96,9 @@ namespace Products_and_Parts
                     // Warns the user and allows them to delete the selected part
                     if (canBeDeleted)
                     {
-                        DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
-                        if (result == DialogResult.Yes)
+                        if (result == DialogResult.OK)
                             dgvParts.Rows.RemoveAt(selectedID);
                         else
                             return;
@@ -117,9 +117,9 @@ namespace Products_and_Parts
                     // Warns the user and allows them to delete the selected part
                     if (canBeDeleted)
                     {
-                        DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
-                        if (result == DialogResult.Yes)
+                        if (result == DialogResult.OK)
                             dgvParts.Rows.RemoveAt(selectedID);
                         else
                             return;
@@ -151,9 +151,9 @@ namespace Products_and_Parts
                 // Warns the user and allows them to delete the selected part
                 if (canBeDeleted)
                 {
-                    DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Product?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Product?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
-                    if (result == DialogResult.Yes)
+                    if (result == DialogResult.OK)
                         dgvProducts.Rows.RemoveAt(selectedID);
                     else
                         return;
