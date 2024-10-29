@@ -9,7 +9,7 @@ namespace Products_and_Parts
         public string Name { get; set; }    
         public decimal Price { get; set; }
         public int InStock { get; set; }    
-        public int Min {  get; set; }
+        public int Min { get; set; }
         public int Max { get; set; }
 
         // A static constructor for a one-time initialization of test data (will only generate once and not on every class instance)
