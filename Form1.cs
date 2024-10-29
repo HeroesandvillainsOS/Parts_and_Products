@@ -135,6 +135,7 @@ namespace Products_and_Parts
             }
         }
 
+        // Handles the Delete Product click event
         private void btnDeleteProducts_Main_Click(object sender, EventArgs e)
         {
             try
@@ -168,17 +169,22 @@ namespace Products_and_Parts
         }
 
         // Searches the Parts Inventory list. Highlights the first partial name match if found.
-        // Returns a warning message if a partial match for the part cannot found
+        // Returns a warning message if a partial match for a part cannot found
         private void btnSearchParts_Main_Click(object sender, EventArgs e)
         {
             string userInput = textBoxSearchParts_Main.Text;
-            bool matchFound = false; // Flag to track if a match was found
+            // converts userInput to lower case
+            userInput = userInput.ToLower();
+            bool matchFound = false; 
 
             for (int i = 0; i < Inventory.AllParts.Count; i++)
             {
                 var part = Inventory.AllParts[i];
 
-                if (part.Name.Contains(userInput))
+                // Converts part name to lowercase
+                string lowerCasePartName = part.Name.ToLower();
+
+                if (lowerCasePartName.Contains(userInput))
                 {
                     dgvParts.ClearSelection();
                     dgvParts.Rows[i].Selected = true;
@@ -193,17 +199,21 @@ namespace Products_and_Parts
         }
 
         // Searches the Products Inventory list. Highlights the first partial name match if found.
-        // Returns a warning message if a partial match for the product cannnot be found
+        // Returns a warning message if a partial match for a product cannnot be found
         private void btnSearchProducts_Main_Click(Object sender, EventArgs e)
         {
             string userInput = textBoxSearchProducts_Main.Text;
+            // Converts userInput to lowercase
+            userInput = userInput.ToLower();
             bool matchFound = false;
 
             for(int i = 0; i < Inventory.Products.Count; i++)
             {
                 var product = Inventory.Products[i];
+                // Converts product name to lowercase
+                string lowerCaseProductName = product.Name.ToLower();
 
-                if(product.Name.Contains(userInput))
+                if(lowerCaseProductName.Contains(userInput))
                 {
                     dgvProducts.ClearSelection();
                     dgvProducts.Rows[i].Selected = true;
