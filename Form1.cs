@@ -40,20 +40,7 @@ namespace Products_and_Parts
             dgvParts.ClearSelection();
         }
 
-        // The following methods handle exiting the program, closing forms, and navigating between forms
-
-        private void btnAddParts_Main_Click(object sender, EventArgs e)
-        {
-            Inventory.OpenAddPartsForm();
-        }
-
-        private void btnModifyParts_Main_Click(object sender, EventArgs e)
-        {
-            if (dgvParts.SelectedRows.Count > 0)
-                Inventory.OpenModifyPartsForm();
-            else
-                MessageBox.Show("Please select a Product to modify.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
+        // Events related to Products
 
         private void btnAddProducts_Main_Click(object sender, EventArgs e)
         {
@@ -68,12 +55,86 @@ namespace Products_and_Parts
                 MessageBox.Show("Please select a Product to modify.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        private void btnDeleteProducts_Main_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Retrieves the selected row's data
+                DataGridViewRow row = dgvProducts.SelectedRows[0];
+                // Retrieves the value of the selected row's Product ID to pass to the RemoveProduct method
+                int selectedID = (int)row.Cells["ProductID"].Value;
+
+                // Checks if the part is allowed to be deleted
+                bool canBeDeleted = Inventory.RemoveProduct(selectedID);
+
+                // Warns the user and allows them to delete the selected part
+                if (canBeDeleted)
+                {
+                    DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Product?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.OK)
+                        dgvProducts.Rows.RemoveAt(selectedID);
+                    else
+                        return;
+                }
+                else
+                    MessageBox.Show("An invalid Product has been selected for deletion. Please try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            // Occurs when the users tries to delete a product without actually selecting a product to delete
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Please select a Product to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Searches the Products Inventory list. Highlights the first partial name match if found.
+        // Returns a warning message if a partial match for a product cannnot be found
+        private void btnSearchProducts_Main_Click(Object sender, EventArgs e)
+        {
+            string userInput = textBoxSearchProducts_Main.Text;
+            // Converts userInput to lowercase
+            userInput = userInput.ToLower();
+            bool matchFound = false;
+
+            for (int i = 0; i < Inventory.Products.Count; i++)
+            {
+                var product = Inventory.Products[i];
+                // Converts product name to lowercase
+                string lowerCaseProductName = product.Name.ToLower();
+
+                if (lowerCaseProductName.Contains(userInput))
+                {
+                    dgvProducts.ClearSelection();
+                    dgvProducts.Rows[i].Selected = true;
+                    matchFound = true;
+                    break;
+                }
+            }
+            if (!matchFound)
+                MessageBox.Show("No Products matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
+                   MessageBoxIcon.Warning);
+        }
+
+        // Events related to Parts
+
+        private void btnAddParts_Main_Click(object sender, EventArgs e)
+        {
+            Inventory.OpenAddPartsForm();
+        }
+
+        private void btnModifyParts_Main_Click(object sender, EventArgs e)
+        {
+            if (dgvParts.SelectedRows.Count > 0)
+                Inventory.OpenModifyPartsForm();
+            else
+                MessageBox.Show("Please select a Product to modify.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
         private void btnExit_Main_Click(object sender, EventArgs e)
         {
             Inventory.CloseInventoryForm();
         }
-
-        // Handles the Delete Parts click event
+        
         private void btnDeleteParts_Main_Click(object sender, EventArgs e)
         {
             try
@@ -141,39 +202,6 @@ namespace Products_and_Parts
             }
         }
 
-        // Handles the Delete Product click event
-        private void btnDeleteProducts_Main_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Retrieves the selected row's data
-                DataGridViewRow row = dgvProducts.SelectedRows[0];
-                // Retrieves the value of the selected row's Product ID to pass to the RemoveProduct method
-                int selectedID = (int)row.Cells["ProductID"].Value;
-
-                // Checks if the part is allowed to be deleted
-                bool canBeDeleted = Inventory.RemoveProduct(selectedID);
-
-                // Warns the user and allows them to delete the selected part
-                if (canBeDeleted)
-                {
-                    DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Product?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-                    if (result == DialogResult.OK)
-                        dgvProducts.Rows.RemoveAt(selectedID);
-                    else
-                        return;
-                }
-                else
-                    MessageBox.Show("An invalid Product has been selected for deletion. Please try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            // Occurs when the users tries to delete a product without actually selecting a product to delete
-            catch (ArgumentOutOfRangeException)
-            {
-                MessageBox.Show("Please select a Product to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         // Searches the Parts Inventory list. Highlights the first partial name match if found.
         // Returns a warning message if a partial match for a part cannot found
         private void btnSearchParts_Main_Click(object sender, EventArgs e)
@@ -202,34 +230,6 @@ namespace Products_and_Parts
             if (!matchFound)
                 MessageBox.Show("No Parts matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
-        }
-
-        // Searches the Products Inventory list. Highlights the first partial name match if found.
-        // Returns a warning message if a partial match for a product cannnot be found
-        private void btnSearchProducts_Main_Click(Object sender, EventArgs e)
-        {
-            string userInput = textBoxSearchProducts_Main.Text;
-            // Converts userInput to lowercase
-            userInput = userInput.ToLower();
-            bool matchFound = false;
-
-            for (int i = 0; i < Inventory.Products.Count; i++)
-            {
-                var product = Inventory.Products[i];
-                // Converts product name to lowercase
-                string lowerCaseProductName = product.Name.ToLower();
-
-                if (lowerCaseProductName.Contains(userInput))
-                {
-                    dgvProducts.ClearSelection();
-                    dgvProducts.Rows[i].Selected = true;
-                    matchFound = true;
-                    break;
-                }
-            }
-            if (!matchFound)
-                MessageBox.Show("No Products matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
-                   MessageBoxIcon.Warning);
         }
     }
 }
