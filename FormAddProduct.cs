@@ -22,6 +22,20 @@ namespace Products_and_Parts
             textBoxPriceCost_AddProduct.BackColor = Color.OrangeRed;
             textBoxMax_AddProduct.BackColor = Color.OrangeRed;
             textBoxMin_AddProduct.BackColor = Color.OrangeRed;
+
+            // Loads the AllParts Binding List into the All Candidate Parts data grid view
+            dgvAllCandidateParts_AddProduct.DataSource = Inventory.AllParts;
+
+            // Data Grid View settings
+            dgvAllCandidateParts_AddProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvAllCandidateParts_AddProduct.ReadOnly = true;
+            dgvAllCandidateParts_AddProduct.MultiSelect = false;
+        }
+
+        // Removes the default selection of the first row of the Data Grid
+        private void OnDataBindingComplete_AddProduct(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvAllCandidateParts_AddProduct.ClearSelection();
         }
 
         // Events that change the Text Box colors based on valid and invalid data
