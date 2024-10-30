@@ -119,6 +119,13 @@ namespace Products_and_Parts
                 MessageBox.Show("Min cannot be greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if (int.Parse(textBoxInventory_ModifyProduct.Text) < int.Parse(textBoxMin_ModifyProduct.Text) ||
+              int.Parse(textBoxInventory_ModifyProduct.Text) > int.Parse(textBoxMax_ModifyProduct.Text))
+            {
+                MessageBox.Show("Inventory cannot be less than Min or greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         // Handles the close button click event
