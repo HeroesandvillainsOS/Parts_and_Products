@@ -57,6 +57,7 @@
             this.textBoxMin_ModifyPart.Name = "textBoxMin_ModifyPart";
             this.textBoxMin_ModifyPart.Size = new System.Drawing.Size(104, 34);
             this.textBoxMin_ModifyPart.TabIndex = 44;
+            this.textBoxMin_ModifyPart.TextChanged += new System.EventHandler(this.textBoxMin_ModifyPart_TextChanged);
             // 
             // btnSave_ModifyPart
             // 
@@ -155,6 +156,7 @@
             this.textBoxMachineID_ModifyPart.Name = "textBoxMachineID_ModifyPart";
             this.textBoxMachineID_ModifyPart.Size = new System.Drawing.Size(177, 34);
             this.textBoxMachineID_ModifyPart.TabIndex = 34;
+            this.textBoxMachineID_ModifyPart.TextChanged += new System.EventHandler(this.textBoxMachineID_ModifyPart_TextChanged);
             // 
             // textBoxMax_ModifyPart
             // 
@@ -164,6 +166,7 @@
             this.textBoxMax_ModifyPart.Name = "textBoxMax_ModifyPart";
             this.textBoxMax_ModifyPart.Size = new System.Drawing.Size(104, 34);
             this.textBoxMax_ModifyPart.TabIndex = 33;
+            this.textBoxMax_ModifyPart.TextChanged += new System.EventHandler(this.textBoxMax_ModifyPart_TextChanged);
             // 
             // textBoxPriceCost_ModifyPart
             // 
@@ -173,6 +176,7 @@
             this.textBoxPriceCost_ModifyPart.Name = "textBoxPriceCost_ModifyPart";
             this.textBoxPriceCost_ModifyPart.Size = new System.Drawing.Size(177, 34);
             this.textBoxPriceCost_ModifyPart.TabIndex = 32;
+            this.textBoxPriceCost_ModifyPart.TextChanged += new System.EventHandler(this.textBoxPriceCost_ModifyPart_TextChanged);
             // 
             // textBoxInventory_ModifyPart
             // 
@@ -182,6 +186,7 @@
             this.textBoxInventory_ModifyPart.Name = "textBoxInventory_ModifyPart";
             this.textBoxInventory_ModifyPart.Size = new System.Drawing.Size(177, 34);
             this.textBoxInventory_ModifyPart.TabIndex = 31;
+            this.textBoxInventory_ModifyPart.TextChanged += new System.EventHandler(this.textBoxInventory_ModifyPart_TextChanged);
             // 
             // textBoxName_ModifyPart
             // 
@@ -191,6 +196,7 @@
             this.textBoxName_ModifyPart.Name = "textBoxName_ModifyPart";
             this.textBoxName_ModifyPart.Size = new System.Drawing.Size(177, 34);
             this.textBoxName_ModifyPart.TabIndex = 30;
+            this.textBoxName_ModifyPart.TextChanged += new System.EventHandler(this.textBoxName_ModifyPart_TextChanged);
             // 
             // textBoxID_ModifyPart
             // 
@@ -198,6 +204,7 @@
             this.textBoxID_ModifyPart.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxID_ModifyPart.Location = new System.Drawing.Point(289, 63);
             this.textBoxID_ModifyPart.Name = "textBoxID_ModifyPart";
+            this.textBoxID_ModifyPart.ReadOnly = true;
             this.textBoxID_ModifyPart.Size = new System.Drawing.Size(177, 34);
             this.textBoxID_ModifyPart.TabIndex = 29;
             // 

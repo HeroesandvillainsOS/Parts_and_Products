@@ -248,6 +248,7 @@
             this.textBoxID_ModifyProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxID_ModifyProduct.Location = new System.Drawing.Point(164, 206);
             this.textBoxID_ModifyProduct.Name = "textBoxID_ModifyProduct";
+            this.textBoxID_ModifyProduct.ReadOnly = true;
             this.textBoxID_ModifyProduct.Size = new System.Drawing.Size(177, 34);
             this.textBoxID_ModifyProduct.TabIndex = 92;
             // 

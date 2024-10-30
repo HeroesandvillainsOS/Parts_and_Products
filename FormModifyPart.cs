@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Products_and_Parts
@@ -75,6 +78,80 @@ namespace Products_and_Parts
         private void btnCancel_ModifyPart_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        // Events that change the Text Box colors based on valid and invalid data
+
+        private void textBoxName_ModifyPart_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(textBoxName_ModifyPart.Text))
+                textBoxName_ModifyPart.BackColor = Color.OrangeRed;
+            else if (textBoxName_ModifyPart.Text.All(chr => char.IsLetter(chr)))
+                textBoxName_ModifyPart.BackColor = default(Color);
+            else if (textBoxName_ModifyPart.Text.Contains(" "))
+                textBoxName_ModifyPart.BackColor = default(Color);
+            else
+                textBoxName_ModifyPart.BackColor = Color.OrangeRed;
+        }
+
+        private void textBoxInventory_ModifyPart_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBoxInventory_ModifyPart.Text, out int parsedValue))
+                textBoxInventory_ModifyPart.BackColor = default(Color);
+            else
+                textBoxInventory_ModifyPart.BackColor = Color.OrangeRed;
+        }
+
+        private void textBoxPriceCost_ModifyPart_TextChanged(object sender, EventArgs e)
+        {
+            if (double.TryParse(textBoxPriceCost_ModifyPart.Text, out double parsedValue))
+                textBoxPriceCost_ModifyPart.BackColor = default(Color);
+            else
+                textBoxPriceCost_ModifyPart.BackColor = Color.OrangeRed;
+        }
+
+        private void textBoxMax_ModifyPart_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBoxMax_ModifyPart.Text, out int parsedValue))
+                textBoxMax_ModifyPart.BackColor = default(Color);
+            else
+                textBoxMax_ModifyPart.BackColor = Color.OrangeRed;
+        }
+
+        private void textBoxMin_ModifyPart_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBoxMin_ModifyPart.Text, out int parsedValue))
+                textBoxMin_ModifyPart.BackColor = default(Color);
+            else
+                textBoxMin_ModifyPart.BackColor = Color.OrangeRed;
+        }
+
+        private void textBoxMachineID_ModifyPart_TextChanged(object sender, EventArgs e)
+        {
+            var currentMachineID = textBoxMachineID_ModifyPart.Text;
+            bool isNumber = false;
+
+            if (int.TryParse(currentMachineID, out int parsedMachineID))
+                isNumber = true;
+
+            if (isNumber && radioBtnInHouse_ModifyPart.Checked)
+            {
+                if (int.TryParse(textBoxMachineID_ModifyPart.Text, out int parsedValue))
+                    textBoxMachineID_ModifyPart.BackColor = default(Color);
+                else
+                    textBoxMachineID_ModifyPart.BackColor = Color.OrangeRed;
+            }
+            else
+            {
+                if (String.IsNullOrEmpty(textBoxMachineID_ModifyPart.Text))
+                    textBoxMachineID_ModifyPart.BackColor = Color.OrangeRed;
+                else if (textBoxMachineID_ModifyPart.Text.All(chr => char.IsLetter(chr)))
+                    textBoxMachineID_ModifyPart.BackColor = default(Color);
+                else if (textBoxMachineID_ModifyPart.Text.Contains(" "))
+                    textBoxMachineID_ModifyPart.BackColor = default(Color);
+                else
+                    textBoxMachineID_ModifyPart.BackColor = Color.OrangeRed;
+            }
         }
     }
 }
