@@ -121,6 +121,13 @@ namespace Products_and_Parts
                 return;
             }
 
+            if (int.Parse(textBoxInventory_AddProduct.Text) < int.Parse(textBoxMin_AddProduct.Text) ||
+                int.Parse(textBoxInventory_AddProduct.Text) > int.Parse(textBoxMax_AddProduct.Text))
+            {
+                MessageBox.Show("Inventory cannot be less than Min or greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Converts the text box values into strings for the data grid veiw
             int newProductID = Convert.ToInt32(textBoxID_AddProduct.Text);
             string newProductName = textBoxName_AddProduct.Text;

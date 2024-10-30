@@ -154,7 +154,6 @@ namespace Products_and_Parts
         // Handles the save button click event
         private void btnSave_ModifyPart_Click(object sender, EventArgs e)
         {
-
             bool onlyNumbersName = textBoxName_ModifyPart.Text.All(chr => !char.IsLetter(chr));
             bool onlyNumbersMachineID = textBoxMachineID_ModifyPart.Text.All(chr => !char.IsLetter(chr));
 
@@ -192,6 +191,13 @@ namespace Products_and_Parts
             if (int.Parse(textBoxMax_ModifyPart.Text) < int.Parse(textBoxMin_ModifyPart.Text))
             {
                 MessageBox.Show("Min cannot be greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (int.Parse(textBoxInventory_ModifyPart.Text) < int.Parse(textBoxMin_ModifyPart.Text) ||
+                int.Parse(textBoxInventory_ModifyPart.Text) > int.Parse(textBoxMax_ModifyPart.Text))
+            {
+                MessageBox.Show("Inventory cannot be less than Min or greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

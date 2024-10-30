@@ -153,6 +153,13 @@ namespace Products_and_Parts
                 return;
             }
 
+            if (int.Parse(textBoxInventory_AddPart.Text) < int.Parse(textBoxMin_AddPart.Text) ||
+                int.Parse(textBoxInventory_AddPart.Text) > int.Parse(textBoxMax_AddPart.Text))
+            {
+                MessageBox.Show("Inventory cannot be less than Min or greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (radioBtnInHouse_AddPart.Checked == true)
             {
                 if (!onlyNumbersMachineID)
