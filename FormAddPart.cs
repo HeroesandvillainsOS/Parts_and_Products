@@ -39,54 +39,14 @@ namespace Products_and_Parts
             labelMachineID_AddPart.Text = "Machine ID";
         }
 
-        // Closes the Add Part form when the "Close" button is clicked
-        private void btnCancel_AddPart_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        // Handles the Save button click event
-        private void btnSave_AddPart_Click(object sender, EventArgs e)
-        {
-            // Creates a new Part item when the "Save" button is clicked,
-            // ... fetching the data the user has entered into the Add Part form
-
-            int newPartID = Convert.ToInt32(textBoxID_AddPart.Text);
-            string newName = textBoxName_AddPart.Text;
-            decimal newPrice = Convert.ToDecimal(textBoxPriceCost_AddPart.Text);
-            int newInstock = Convert.ToInt32(textBoxInventory_AddPart.Text);
-            int newMin = Convert.ToInt32(textBoxMin_AddPart.Text);
-            int newMax = Convert.ToInt32(textBoxMax_AddPart.Text);
-
-            Part newPart;
-
-            // Checks for whether the "Machine ID" or "Company Name" radio button ticked
-
-            if (radioBtnInHouse_AddPart.Checked)
-            {
-                int newMachineID = Convert.ToInt32(textBoxMachineID_AddPart.Text);
-                newPart = new InHouse(newPartID, newName, newPrice, newInstock, newMin, newMax, newMachineID);
-            }
-            else
-            {
-                string newCompanyName = textBoxMachineID_AddPart.Text;
-                newPart = new Outsourced(newPartID, newName, newPrice, newInstock, newMin, newMax, newCompanyName);
-            }
-
-            // Calls the AddPart method, which adds the new part to the AllParts Binding List
-            Inventory.AddPart(newPart);
-
-            // Closes the Add Part form once a part is added
-            this.Close();
-        }
-
         // Events that change the Text Box colors based on valid and invalid data
-
         private void textBoxName_AddPart_TextChanged(object sender, EventArgs e)
         {
+            bool onlyNumbers = textBoxName_AddPart.Text.All(chr => !char.IsLetter(chr));
+
             if (String.IsNullOrEmpty(textBoxName_AddPart.Text))
                 textBoxName_AddPart.BackColor = Color.OrangeRed;
-            else if (textBoxName_AddPart.Text.All(chr => char.IsLetter(chr)))
+            else if (!onlyNumbers)
                 textBoxName_AddPart.BackColor = default(Color);
             else if (textBoxName_AddPart.Text.Contains(" "))
                 textBoxName_AddPart.BackColor = default(Color);
@@ -137,15 +97,116 @@ namespace Products_and_Parts
             }
             else
             {
+                bool onlyNumbers = textBoxMachineID_AddPart.Text.All(chr => !char.IsLetter(chr));
+
                 if (String.IsNullOrEmpty(textBoxMachineID_AddPart.Text))
                     textBoxMachineID_AddPart.BackColor = Color.OrangeRed;
-                else if (textBoxMachineID_AddPart.Text.All(chr => char.IsLetter(chr)))
+                else if (!onlyNumbers)
                     textBoxMachineID_AddPart.BackColor = default(Color);
                 else if (textBoxMachineID_AddPart.Text.Contains(" "))
                     textBoxMachineID_AddPart.BackColor = default(Color);
                 else
                     textBoxMachineID_AddPart.BackColor = Color.OrangeRed;
             }
+        }
+
+        // Handles the Save button click event
+        private void btnSave_AddPart_Click(object sender, EventArgs e)
+        {
+            bool onlyNumbersName = textBoxName_AddPart.Text.All(chr => !char.IsLetter(chr));
+            bool onlyNumbersMachineID = textBoxMachineID_AddPart.Text.All(chr => !char.IsLetter(chr));
+
+            // Checks to ensure text boxes only use valid data types
+            if (onlyNumbersName)
+            {
+                MessageBox.Show("Name must contain letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(textBoxInventory_AddPart.Text, out _))
+            {
+                MessageBox.Show("Inventory can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!decimal.TryParse(textBoxPriceCost_AddPart.Text, out _))
+            {
+                MessageBox.Show("Price can only contain numbers and decimals.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(textBoxMax_AddPart.Text, out _))
+            {
+                MessageBox.Show("Max can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(textBoxMin_AddPart.Text, out _))
+            {
+                MessageBox.Show("Min can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (int.Parse(textBoxMax_AddPart.Text) < int.Parse(textBoxMin_AddPart.Text))
+            {
+                MessageBox.Show("Min cannot be greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (radioBtnInHouse_AddPart.Checked == true)
+            {
+                if (!onlyNumbersMachineID)
+                {
+                    MessageBox.Show("Machine ID can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            if (radioBtnOutsourced_AddPart.Checked == true)
+            {
+                if (onlyNumbersMachineID)
+                {
+                    MessageBox.Show("Company Name must contain letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            // Creates a new Part item when the "Save" button is clicked,
+            // ... fetching the data the user has entered into the Add Part form
+
+            int newPartID = Convert.ToInt32(textBoxID_AddPart.Text);
+            string newName = textBoxName_AddPart.Text;
+            decimal newPrice = Convert.ToDecimal(textBoxPriceCost_AddPart.Text);
+            int newInstock = Convert.ToInt32(textBoxInventory_AddPart.Text);
+            int newMin = Convert.ToInt32(textBoxMin_AddPart.Text);
+            int newMax = Convert.ToInt32(textBoxMax_AddPart.Text);
+
+            Part newPart;
+
+            // Checks for whether the "Machine ID" or "Company Name" radio button ticked
+
+            if (radioBtnInHouse_AddPart.Checked)
+            {
+                int newMachineID = Convert.ToInt32(textBoxMachineID_AddPart.Text);
+                newPart = new InHouse(newPartID, newName, newPrice, newInstock, newMin, newMax, newMachineID);
+            }
+            else
+            {
+                string newCompanyName = textBoxMachineID_AddPart.Text;
+                newPart = new Outsourced(newPartID, newName, newPrice, newInstock, newMin, newMax, newCompanyName);
+            }
+
+            // Calls the AddPart method, which adds the new part to the AllParts Binding List
+            Inventory.AddPart(newPart);
+
+            // Closes the Add Part form once a part is added
+            this.Close();
+        }
+
+        // Handles the Close button click event
+        private void btnCancel_AddPart_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
