@@ -5,12 +5,12 @@ using System.Windows.Forms;
 
 namespace Products_and_Parts
 {
+    // The MainScreen form only runs in instances.
+    // Therefore, to access the current instance and its objects,
+    // the instance is made static and public and the dgv's are made public.
+    // To access them, use MainScreen.Instance.DgvProducts. ....
     public partial class MainScreen : Form
     {
-        // The MainScreen form only runs in instances.
-        // Therefore, to access the current instance and its objects,
-        // the instance is made static and public and the dgv's are made public.
-        // To access them, use MainScreen.Instance.DgvProducts. ....
         public static MainScreen Instance { get; private set; }
         public DataGridView DgvProducts => dgvProducts;
         public DataGridView DgvParts => dgvParts;

@@ -34,28 +34,27 @@ namespace Products_and_Parts
 
         // Methods related to Products
 
+        // Opens the Add Products form when the "Add" button is clicked
         public static void OpenAddProductsForm()
         {
             // Keeps a running List of taken productID's every time the Add Products form is open
             for (int i = 0; i < Inventory.Products.Count; i++)
                 takenProductIds.Add(i);
 
-            // Opens the Add Products form when the "Add" button is clicked
             FormAddProduct addProductForm = new FormAddProduct();
             addProductForm.Show();
         }
 
+        // Opens the Modify Product form when the "Modify" button is clicked
         public static void OpenModifyProductsForm()
         {
-            // Opens the Modify Product form when the "Modify" button is clicked
             FormModifyProduct modifyProductForm = new FormModifyProduct();
             modifyProductForm.Show();
         }
 
+        // Adds a new Product item to the Products Binding List
         public static void AddProduct(Product product)
         {
-            // Adds a new Product item to the Products Binding List,
-            // ... which displays the Product on the Inventory form's Product data grid view
             Products.Add(product);
         }
 
@@ -74,30 +73,28 @@ namespace Products_and_Parts
 
         // Methods related to Parts
 
+        // Opens the Add Parts form when the "Add" button is clicked
         public static void OpenAddPartsForm()
         {
             // Keeps a running List of taken partID's every time the Add Parts form is open
             for (int i = 0; i < Inventory.AllParts.Count; i++)
                 takenPartIds.Add(i);
 
-            // Opens the Add Parts form when the "Add" button is clicked
             FormAddPart addPartForm = new FormAddPart();
             addPartForm.Show();
         }
 
+        // Opens the Modify Parts form when the "Modify" button is clicked
         public static void OpenModifyPartsForm()
         {
-            // Opens the Modify Parts form when the "Modify" button is clicked
             FormModifyPart modifyPartForm = new FormModifyPart();
             modifyPartForm.Show();
         }
 
+        // Adds a new part item to the AllParts Binding List
         public static void AddPart(Part part)
-        {
-            // Adds a new part item to the AllParts Binding List,
-            // ... which displays the part on the Inventory form's Part data grid view
-            Inventory.AllParts.Add(part);
-            
+        {        
+            Inventory.AllParts.Add(part);         
         }
 
         public static bool DeletePart(Part part)
@@ -154,9 +151,9 @@ namespace Products_and_Parts
 
         public static void UpdatePart(int partID, Part part) { }
 
+        // Closes the program when the "Exit" button is clicked
         public static void CloseInventoryForm()
         {
-            // Closes the program when the "Exit" button is clicked
             Application.Exit();
         }
     }
