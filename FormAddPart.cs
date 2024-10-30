@@ -1,14 +1,8 @@
 ﻿// This script handles the logic for the Add Parts form
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Products_and_Parts
@@ -33,21 +27,21 @@ namespace Products_and_Parts
             textBoxMachineID_AddPart.BackColor = Color.OrangeRed;
         }
 
+        // Displays "Company Name" on the Add Part form
         private void radioBtnOutsourced_AddPart_CheckedChanged(object sender, EventArgs e)
         {
-            // Handles changing the "Machine ID" lable to "Company Name" when the proper radio button is clicked
             labelMachineID_AddPart.Text = "Company Name";
         }
 
+        // Displays "Machine ID" on the Add Part form
         private void radioBtnInHouse_AddPart_CheckedChanged(object sender, EventArgs e)
         {
-            // Handles changing the "Company Name" lable to "Machine" when the proper radio button is clicked
             labelMachineID_AddPart.Text = "Machine ID";
         }
 
+        // Closes the Add Part form when the "Close" button is clicked
         private void btnCancel_AddPart_Click(object sender, EventArgs e)
         {
-            // Closes the Add Part form when the "Close" button is clicked
             this.Close();
         }
 
@@ -101,10 +95,8 @@ namespace Products_and_Parts
         }
 
         private void textBoxInventory_AddPart_TextChanged(object sender, EventArgs e)
-        {
-            int parsedValue;
-
-            if (int.TryParse(textBoxInventory_AddPart.Text, out parsedValue))
+        {         
+            if (int.TryParse(textBoxInventory_AddPart.Text, out int parsedValue))
                 textBoxInventory_AddPart.BackColor = default(Color);
             else
                 textBoxInventory_AddPart.BackColor = Color.OrangeRed;
@@ -112,9 +104,7 @@ namespace Products_and_Parts
 
         private void textBoxPriceCost_AddPart_TextChanged(object sender, EventArgs e)
         {
-            double parsedValue;
-
-            if (double.TryParse(textBoxPriceCost_AddPart.Text, out parsedValue))
+            if (double.TryParse(textBoxPriceCost_AddPart.Text, out double parsedValue))
                 textBoxPriceCost_AddPart.BackColor = default(Color);
             else
                 textBoxPriceCost_AddPart.BackColor = Color.OrangeRed;
@@ -122,9 +112,7 @@ namespace Products_and_Parts
 
         private void textBoxMax_AddPart_TextChanged(object sender, EventArgs e)
         {
-            int parsedValue;
-
-            if (int.TryParse(textBoxMax_AddPart.Text, out parsedValue))
+            if (int.TryParse(textBoxMax_AddPart.Text, out int parsedValue))
                 textBoxMax_AddPart.BackColor = default(Color);
             else
                 textBoxMax_AddPart.BackColor = Color.OrangeRed;
@@ -132,9 +120,7 @@ namespace Products_and_Parts
 
         private void textBoxMin_AddPart_TextChanged(object sender, EventArgs e)
         {
-            int parsedValue;
-
-            if (int.TryParse(textBoxMin_AddPart.Text, out parsedValue))
+            if (int.TryParse(textBoxMin_AddPart.Text, out int parsedValue))
                 textBoxMin_AddPart.BackColor = default(Color);
             else
                 textBoxMin_AddPart.BackColor = Color.OrangeRed;
@@ -144,9 +130,7 @@ namespace Products_and_Parts
         {
             if (radioBtnInHouse_AddPart.Checked)
             {
-                int parsedValue;
-
-                if (int.TryParse(textBoxMachineID_AddPart.Text, out parsedValue))
+                if (int.TryParse(textBoxMachineID_AddPart.Text, out int parsedValue))
                     textBoxMachineID_AddPart.BackColor = default(Color);
                 else
                     textBoxMachineID_AddPart.BackColor = Color.OrangeRed;
@@ -162,7 +146,6 @@ namespace Products_and_Parts
                 else
                     textBoxMachineID_AddPart.BackColor = Color.OrangeRed;
             }
-
         }
     }
 }

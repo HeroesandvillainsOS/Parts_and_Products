@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Products_and_Parts
@@ -35,10 +30,56 @@ namespace Products_and_Parts
             textBoxMax_ModifyProduct.Text = selectedMax.ToString();
         }
 
+        // Closes the Modify Product form when the "Close" button is clicked
         private void btnCancel_ModifyProduct_Click(object sender, EventArgs e)
         {
-            // Closes the Modify Product form when the "Close" button is clicked
             this.Close();
+        }
+
+        // Events that change the Text Box colors based on valid and invalid data
+
+        private void textBoxName_ModifyProduct_TextChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(textBoxName_ModifyProduct.Text))
+                textBoxName_ModifyProduct.BackColor = Color.OrangeRed;
+            else if (textBoxName_ModifyProduct.Text.All(chr => char.IsLetter(chr)))
+                textBoxName_ModifyProduct.BackColor = default(Color);
+            else if (textBoxName_ModifyProduct.Text.Contains(" "))
+                textBoxName_ModifyProduct.BackColor = default(Color);
+            else
+                textBoxName_ModifyProduct.BackColor = Color.OrangeRed;
+        }
+
+        private void textBoxInventory_ModifyProduct_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBoxInventory_ModifyProduct.Text, out int parsedValue))
+                textBoxInventory_ModifyProduct.BackColor = default(Color);
+            else
+                textBoxInventory_ModifyProduct.BackColor = Color.OrangeRed;
+        }
+
+        private void textBoxPriceCost_ModifyProduct_TextChanged(object sender, EventArgs e)
+        {
+            if (double.TryParse(textBoxPriceCost_ModifyProduct.Text, out double parsedValue))
+                textBoxPriceCost_ModifyProduct.BackColor = default(Color);
+            else
+                textBoxPriceCost_ModifyProduct.BackColor = Color.OrangeRed;
+        }
+
+        private void textBoxMax_ModifyProduct_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBoxMax_ModifyProduct.Text, out int parsedValue))
+                textBoxMax_ModifyProduct.BackColor = default(Color);
+            else
+                textBoxMax_ModifyProduct.BackColor = Color.OrangeRed;
+        }
+
+        private void textBoxMin_ModifyProduct_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBoxMin_ModifyProduct.Text, out int parsedValue))
+                textBoxMin_ModifyProduct.BackColor = default(Color);
+            else
+                textBoxMin_ModifyProduct.BackColor = Color.OrangeRed;
         }
     }
 }
