@@ -63,11 +63,37 @@ namespace Products_and_Parts
             // Ensures the app fails gracefully in the event an invalid Product (index) is (somehow) selected 
             if (productID >= 0)
                 return true;
-            else 
+            else
                 return false;
         }
 
-        public static Product LookupProduct(int productID) { return null; }
+        // Returns a Product if one is found in the Products Binding List
+        public static Product LookupProduct(int productID)
+        {
+            int foundProductID;
+            string foundName;
+            decimal foundPrice;
+            int foundInStock;
+            int foundMin;
+            int foundMax;
+
+            foreach (Product product in Inventory.Products)
+            {
+                // Checks to see if the passed Product ID matches a Product in the Products List
+                if (productID == product.ProductID)
+                {
+                    foundProductID = productID;
+                    foundName = product.Name;
+                    foundPrice = product.Price;
+                    foundInStock = product.InStock;
+                    foundMin = product.Min;
+                    foundMax = product.Max;
+                    Product foundProduct = new Product(foundProductID, foundName, foundPrice, foundInStock, foundMin, foundMax);
+                    return foundProduct;
+                }
+            }
+            return null;
+        }
 
         public static void UpdateProduct(int productID, Product product) { }
 
@@ -93,8 +119,8 @@ namespace Products_and_Parts
 
         // Adds a new part item to the AllParts Binding List
         public static void AddPart(Part part)
-        {        
-            Inventory.AllParts.Add(part);         
+        {
+            Inventory.AllParts.Add(part);
         }
 
         public static bool DeletePart(Part part)
@@ -105,6 +131,7 @@ namespace Products_and_Parts
             return true;
         }
 
+        // Returns an InHouse or Outsourced Part if one is found in the AllParts Binding List
         public static Part LookupPart(int partID)
         {
             int foundPartID;
@@ -116,7 +143,7 @@ namespace Products_and_Parts
             int foundMachineID;
             string foundCompanyName;
 
-            foreach(Part part in Inventory.AllParts)
+            foreach (Part part in Inventory.AllParts)
             {
                 // Checks to see if the passed Part ID matches a Part in the All Parts List
                 if (partID == part.PartID)
