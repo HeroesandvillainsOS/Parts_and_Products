@@ -30,19 +30,14 @@ namespace Products_and_Parts
             textBoxMax_ModifyProduct.Text = selectedMax.ToString();
         }
 
-        // Closes the Modify Product form when the "Close" button is clicked
-        private void btnCancel_ModifyProduct_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         // Events that change the Text Box colors based on valid and invalid data
-
         private void textBoxName_ModifyProduct_TextChanged(object sender, EventArgs e)
         {
+            bool onlyNumbers = textBoxName_ModifyProduct.Text.All(chr => !char.IsLetter(chr));
+
             if (String.IsNullOrEmpty(textBoxName_ModifyProduct.Text))
                 textBoxName_ModifyProduct.BackColor = Color.OrangeRed;
-            else if (textBoxName_ModifyProduct.Text.All(chr => char.IsLetter(chr)))
+            else if (!onlyNumbers)
                 textBoxName_ModifyProduct.BackColor = default(Color);
             else if (textBoxName_ModifyProduct.Text.Contains(" "))
                 textBoxName_ModifyProduct.BackColor = default(Color);
@@ -80,6 +75,56 @@ namespace Products_and_Parts
                 textBoxMin_ModifyProduct.BackColor = default(Color);
             else
                 textBoxMin_ModifyProduct.BackColor = Color.OrangeRed;
+        }
+
+        // Handles the save button click event
+        private void btnSave_ModifyProduct_Click(object sender, EventArgs e)
+        {
+            bool onlyNumbers = textBoxName_ModifyProduct.Text.All(chr => !char.IsLetter(chr));
+
+            // Checks to ensure text boxes only use valid data types
+            if (onlyNumbers)
+            {
+                MessageBox.Show("Name must contain letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!decimal.TryParse(textBoxPriceCost_ModifyProduct.Text, out _))
+            {
+                MessageBox.Show("Price can only contain numbers and decimals.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(textBoxInventory_ModifyProduct.Text, out _))
+            {
+                MessageBox.Show("Inventory can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            if (!int.TryParse(textBoxMax_ModifyProduct.Text, out _))
+            {
+                MessageBox.Show("Max can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(textBoxMin_ModifyProduct.Text, out _))
+            {
+                MessageBox.Show("Min can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (int.Parse(textBoxMax_ModifyProduct.Text) < int.Parse(textBoxMin_ModifyProduct.Text))
+            {
+                MessageBox.Show("Min cannot be greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        // Handles the close button click event
+        private void btnCancel_ModifyProduct_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

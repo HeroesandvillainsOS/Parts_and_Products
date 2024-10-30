@@ -105,6 +105,7 @@
             this.btnSave_ModifyProduct.TabIndex = 107;
             this.btnSave_ModifyProduct.Text = "Save";
             this.btnSave_ModifyProduct.UseVisualStyleBackColor = true;
+            this.btnSave_ModifyProduct.Click += new System.EventHandler(this.btnSave_ModifyProduct_Click);
             // 
             // btnCancel_ModifyProduct
             // 

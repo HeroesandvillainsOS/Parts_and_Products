@@ -74,19 +74,14 @@ namespace Products_and_Parts
             labelMachineID_ModifyPart.Text = "Company Name";
         }
 
-        // Closes the Modify Part form when the "Close" button is clicked
-        private void btnCancel_ModifyPart_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         // Events that change the Text Box colors based on valid and invalid data
-
         private void textBoxName_ModifyPart_TextChanged(object sender, EventArgs e)
         {
+            bool onlyNumbers = textBoxName_ModifyPart.Text.All(chr => !char.IsLetter(chr));
+
             if (String.IsNullOrEmpty(textBoxName_ModifyPart.Text))
                 textBoxName_ModifyPart.BackColor = Color.OrangeRed;
-            else if (textBoxName_ModifyPart.Text.All(chr => char.IsLetter(chr)))
+            else if (!onlyNumbers)
                 textBoxName_ModifyPart.BackColor = default(Color);
             else if (textBoxName_ModifyPart.Text.Contains(" "))
                 textBoxName_ModifyPart.BackColor = default(Color);
@@ -143,15 +138,86 @@ namespace Products_and_Parts
             }
             else
             {
+                bool onlyNumbers = textBoxName_ModifyPart.Text.All(chr => !char.IsLetter(chr));
+
                 if (String.IsNullOrEmpty(textBoxMachineID_ModifyPart.Text))
                     textBoxMachineID_ModifyPart.BackColor = Color.OrangeRed;
-                else if (textBoxMachineID_ModifyPart.Text.All(chr => char.IsLetter(chr)))
+                else if (!onlyNumbers)
                     textBoxMachineID_ModifyPart.BackColor = default(Color);
                 else if (textBoxMachineID_ModifyPart.Text.Contains(" "))
                     textBoxMachineID_ModifyPart.BackColor = default(Color);
                 else
                     textBoxMachineID_ModifyPart.BackColor = Color.OrangeRed;
             }
+        }
+
+        // Handles the save button click event
+        private void btnSave_ModifyPart_Click(object sender, EventArgs e)
+        {
+
+            bool onlyNumbersName = textBoxName_ModifyPart.Text.All(chr => !char.IsLetter(chr));
+            bool onlyNumbersMachineID = textBoxMachineID_ModifyPart.Text.All(chr => !char.IsLetter(chr));
+
+            // Checks to ensure text boxes only use valid data types
+            if (onlyNumbersName)
+            {
+                MessageBox.Show("Name must contain letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(textBoxInventory_ModifyPart.Text, out _))
+            {
+                MessageBox.Show("Inventory can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!decimal.TryParse(textBoxPriceCost_ModifyPart.Text, out _))
+            {
+                MessageBox.Show("Price can only contain numbers and decimals.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(textBoxMax_ModifyPart.Text, out _))
+            {
+                MessageBox.Show("Max can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!int.TryParse(textBoxMin_ModifyPart.Text, out _))
+            {
+                MessageBox.Show("Min can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (int.Parse(textBoxMax_ModifyPart.Text) < int.Parse(textBoxMin_ModifyPart.Text))
+            {
+                MessageBox.Show("Min cannot be greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (radioBtnInHouse_ModifyPart.Checked == true)
+            {
+                if (!onlyNumbersMachineID)
+                {
+                    MessageBox.Show("Machine ID can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            if (radioBtnOutsourced_ModifyPart.Checked == true)
+            {
+                if (onlyNumbersMachineID)
+                {
+                    MessageBox.Show("Company Name must contain letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
+
+        // Handles the close button click event
+        private void btnCancel_ModifyPart_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
