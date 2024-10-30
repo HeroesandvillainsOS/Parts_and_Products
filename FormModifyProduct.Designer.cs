@@ -145,6 +145,7 @@
             this.textBoxMin_ModifyProduct.Name = "textBoxMin_ModifyProduct";
             this.textBoxMin_ModifyProduct.Size = new System.Drawing.Size(104, 34);
             this.textBoxMin_ModifyProduct.TabIndex = 103;
+            this.textBoxMin_ModifyProduct.TextChanged += new System.EventHandler(this.textBoxMin_ModifyProduct_TextChanged);
             // 
             // labelMin_ModifyProduct
             // 
@@ -214,6 +215,7 @@
             this.textBoxMax_ModifyProduct.Name = "textBoxMax_ModifyProduct";
             this.textBoxMax_ModifyProduct.Size = new System.Drawing.Size(104, 34);
             this.textBoxMax_ModifyProduct.TabIndex = 96;
+            this.textBoxMax_ModifyProduct.TextChanged += new System.EventHandler(this.textBoxMax_ModifyProduct_TextChanged);
             // 
             // textBoxPriceCost_ModifyProduct
             // 
@@ -223,6 +225,7 @@
             this.textBoxPriceCost_ModifyProduct.Name = "textBoxPriceCost_ModifyProduct";
             this.textBoxPriceCost_ModifyProduct.Size = new System.Drawing.Size(177, 34);
             this.textBoxPriceCost_ModifyProduct.TabIndex = 95;
+            this.textBoxPriceCost_ModifyProduct.TextChanged += new System.EventHandler(this.textBoxPriceCost_ModifyProduct_TextChanged);
             // 
             // textBoxInventory_ModifyProduct
             // 
@@ -232,6 +235,7 @@
             this.textBoxInventory_ModifyProduct.Name = "textBoxInventory_ModifyProduct";
             this.textBoxInventory_ModifyProduct.Size = new System.Drawing.Size(177, 34);
             this.textBoxInventory_ModifyProduct.TabIndex = 94;
+            this.textBoxInventory_ModifyProduct.TextChanged += new System.EventHandler(this.textBoxInventory_ModifyProduct_TextChanged);
             // 
             // textBoxName_ModifyProduct
             // 
@@ -241,6 +245,7 @@
             this.textBoxName_ModifyProduct.Name = "textBoxName_ModifyProduct";
             this.textBoxName_ModifyProduct.Size = new System.Drawing.Size(177, 34);
             this.textBoxName_ModifyProduct.TabIndex = 93;
+            this.textBoxName_ModifyProduct.TextChanged += new System.EventHandler(this.textBoxName_ModifyProduct_TextChanged);
             // 
             // textBoxID_ModifyProduct
             // 
