@@ -286,6 +286,7 @@
             this.dgvAllCandidateParts_AddProduct.RowTemplate.Height = 24;
             this.dgvAllCandidateParts_AddProduct.Size = new System.Drawing.Size(530, 212);
             this.dgvAllCandidateParts_AddProduct.TabIndex = 66;
+            this.dgvAllCandidateParts_AddProduct.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.OnDataBindingComplete_AddProduct);
             // 
             // FormAddProduct
             // 

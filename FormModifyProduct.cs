@@ -28,6 +28,20 @@ namespace Products_and_Parts
             textBoxInventory_ModifyProduct.Text = selectedInStock.ToString();
             textBoxMin_ModifyProduct.Text = selectedMin.ToString();
             textBoxMax_ModifyProduct.Text = selectedMax.ToString();
+
+            // Loads the AllParts Binding List into the All Candidate Parts data grid view
+            dgvAllCandidateParts_ModifyProduct.DataSource = Inventory.AllParts;
+
+            // Data Grid View settings
+            dgvAllCandidateParts_ModifyProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvAllCandidateParts_ModifyProduct.ReadOnly = true;
+            dgvAllCandidateParts_ModifyProduct.MultiSelect = false;
+        }
+
+        // Removes the default selection of the first row of the Data Grid
+        private void OnDataBindingComplete_ModifyProduct(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvAllCandidateParts_ModifyProduct.ClearSelection();
         }
 
         // Events that change the Text Box colors based on valid and invalid data
