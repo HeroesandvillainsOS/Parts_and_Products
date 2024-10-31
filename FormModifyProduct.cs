@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Products_and_Parts
 {
@@ -29,9 +30,6 @@ namespace Products_and_Parts
             textBoxMin_ModifyProduct.Text = selectedMin.ToString();
             textBoxMax_ModifyProduct.Text = selectedMax.ToString();
 
-            // Loads the AllParts Binding List into the All Candidate Parts data grid view
-            dgvAllCandidateParts_ModifyProduct.DataSource = Inventory.AllParts;
-
             // Data Grid View settings
             dgvAllCandidateParts_ModifyProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAllCandidateParts_ModifyProduct.ReadOnly = true;
@@ -40,6 +38,34 @@ namespace Products_and_Parts
             dgvPartsAssociatedWithProduct_ModifyProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPartsAssociatedWithProduct_ModifyProduct.ReadOnly = true;
             dgvPartsAssociatedWithProduct_ModifyProduct.MultiSelect = false;
+
+            // Loads the AllParts Binding List into the All Candidate Parts data grid view
+            dgvAllCandidateParts_ModifyProduct.DataSource = Inventory.AllParts;
+            
+            // Ensures the "PartsAssociatedWithThisProduct" Binding List is cleared every time the Modify Product form is opened
+            Product.PartsAssociatedWithThisProduct.Clear();
+
+            // Retrieves the current Product ID
+            int currentProductID = int.Parse(textBoxID_ModifyProduct.Text);
+
+            // Searches to see if the Product has any Parts associated with it
+            foreach (var productWithAssociatedParts in Product.ProductsWithAssociatedParts)
+            {
+                if (productWithAssociatedParts.ProductID == currentProductID)
+                {
+                    // Finds the Product's associated Part in the "AssociatedParts" Binding List
+                    Part partToAdd = Inventory.LookupPart(productWithAssociatedParts.PartID);
+
+                    // Adds the Part to the Binding List only if it's not already in the list
+                    if (!Product.PartsAssociatedWithThisProduct.Contains(partToAdd))
+                    {
+                        Product.PartsAssociatedWithThisProduct.Add(partToAdd);
+                    }
+                }
+            }
+
+            // Displays the Product's Associated Parts in the data grid view
+            dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.PartsAssociatedWithThisProduct;
         }
 
         // Removes the default selection of the first row of the Data Grid
@@ -205,9 +231,9 @@ namespace Products_and_Parts
                 // Retrieves the full Part details
                 Part returnedPart = Inventory.LookupPart(selectedPartID);
                 // Saves the Part to a temporty Binding List
-                Product.TemporaryNewAssociatedParts.Add(returnedPart);
-                // Displays the Part temporarily on the data grid view
-                dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryNewAssociatedParts;
+                Product.TemporaryAssociatedParts.Add(returnedPart);
+                // Displays the Part temporarily on the Associated Parts data grid view
+                dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryAssociatedParts;
             }
             else
             {

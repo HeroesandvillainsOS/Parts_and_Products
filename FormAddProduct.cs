@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -24,9 +23,6 @@ namespace Products_and_Parts
             textBoxMax_AddProduct.BackColor = Color.OrangeRed;
             textBoxMin_AddProduct.BackColor = Color.OrangeRed;
 
-            // Loads the AllParts Binding List into the All Candidate Parts data grid view
-            dgvAllCandidateParts_AddProduct.DataSource = Inventory.AllParts;
-
             // Data Grid View settings
             dgvAllCandidateParts_AddProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAllCandidateParts_AddProduct.ReadOnly = true;
@@ -35,6 +31,9 @@ namespace Products_and_Parts
             dgvPartsAssociatedWithProduct_AddProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPartsAssociatedWithProduct_AddProduct.ReadOnly = true;
             dgvPartsAssociatedWithProduct_AddProduct.MultiSelect = false;
+
+            // Loads the AllParts Binding List into the All Candidate Parts data grid view
+            dgvAllCandidateParts_AddProduct.DataSource = Inventory.AllParts;
         }
 
         // Removes the default selection of the first row of the Data Grid
@@ -131,7 +130,7 @@ namespace Products_and_Parts
         private void btnSave_AddProduct_Click(object sender, EventArgs e)
         {
             bool onlyNumbers = textBoxName_AddProduct.Text.All(chr => !char.IsLetter(chr));
-           
+
             // Checks to ensure text boxes only use valid data types
             if (onlyNumbers)
             {
@@ -196,7 +195,7 @@ namespace Products_and_Parts
         // Display purposes only. Actual Part addition is handled on the Product save click event.
         private void btnAdd_AddProduct_Click(object sender, EventArgs e)
         {
-            if(dgvAllCandidateParts_AddProduct.SelectedRows.Count > 0)
+            if (dgvAllCandidateParts_AddProduct.SelectedRows.Count > 0)
             {
                 // Determines which Part is selected in the data grid view
                 var selectedPart = dgvAllCandidateParts_AddProduct.SelectedRows[0];
@@ -204,9 +203,9 @@ namespace Products_and_Parts
                 // Retrieves the full Part details
                 Part returnedPart = Inventory.LookupPart(selectedPartID);
                 // Saves the Part to a temporty Binding List
-                Product.TemporaryNewAssociatedParts.Add(returnedPart);
-                // Displays the Part temporarily on the data grid view
-                dgvPartsAssociatedWithProduct_AddProduct.DataSource = Product.TemporaryNewAssociatedParts;
+                Product.TemporaryAssociatedParts.Add(returnedPart);
+                // Displays the Part temporarily on the Associated Parts data grid view
+                dgvPartsAssociatedWithProduct_AddProduct.DataSource = Product.TemporaryAssociatedParts;
             }
             else
             {
@@ -219,7 +218,7 @@ namespace Products_and_Parts
         // Display purposes only. Actual Part removal is handled on the Product save click event.
         private void btnDelete_AddProduct_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         // Handles the close button click event
