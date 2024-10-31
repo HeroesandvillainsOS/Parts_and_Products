@@ -4,7 +4,6 @@
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 
 namespace Products_and_Parts
 {
@@ -96,6 +95,7 @@ namespace Products_and_Parts
             return null;
         }
 
+        // CAN USE TO UPDATE PRODUCT INFORMATION TO PASS ALONG NEW DETAILS ABOUT THE PRODUCT TO THE PRODUCTS BINDING LIST
         public static void UpdateProduct(int productID, Product product) { }
 
         // Returns an index position of a Product when a productID is passed in
@@ -188,6 +188,7 @@ namespace Products_and_Parts
             return null;
         }
 
+        // CAN USE TO UPDATE PART INFORMATION TO PASS ALONG NEW DETAILS ABOUT THE PART TO THE ALL PARTS BINDING LIST
         public static void UpdatePart(int partID, Part part) { }
 
         // Returns an index position of a Product when a productID is passed in

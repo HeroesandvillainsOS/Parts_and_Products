@@ -4,7 +4,10 @@ namespace Products_and_Parts
 {
     internal class Product
     {
-        public static BindingList<Part> AssociatedParts = new BindingList<Part>();
+        public static BindingList<Part> AssociatedParts { get; set; } = new BindingList<Part>();
+        public static BindingList<Part> TemporaryNewAssociatedParts { get; set; } = new BindingList<Part>();
+        public static BindingList<Part> TemporaryCurrentlyAssociatedParts { get; set; } = new BindingList<Part>();
+
         public int ProductID { get; set; }  
         public string Name { get; set; }    
         public decimal Price { get; set; }
@@ -24,16 +27,21 @@ namespace Products_and_Parts
             Max = max;
         }
 
+        // WILL USE TO ADD A PART TO THE ALL ASSOCIATED PARTS BINDING LIST WHEN SAVE BUTTON CLICKED
         public static void AddAssociatedPart(Part part)
         {
 
         }
 
+        // CAN ALSO USE TO DELETE AN ASSOCIATED PART FROM THE ALL ASSOCIATED PARTS BINDING LIST WHEN SAVE BUTTON CLICKED
+        // IF RETURNS TRUE, DELETE PART FROM ALL ASSOCIATED PARTS BINDING LIST. IF FALSE, DON'T DELETE AND DISPLAY MESSAGE.
         public static bool RemoveAssociatedPart(int partID)
         {
             return true;
         }
 
+        // CAN USE TO GET FULL PART DETAILS FROM ALL ASSOCIATED PARTS BINDING LIST BY ENTERING A PART ID
+        // IF NULL, MAYBE A MESSAGE DISPLAYS SAYING THE PART IS NOT ASSOCIATED WITH ANY PRODUCTS
         public static Part LookupAssociatedPart(int partID)
         {
             return null;

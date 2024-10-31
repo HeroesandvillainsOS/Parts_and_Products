@@ -36,12 +36,17 @@ namespace Products_and_Parts
             dgvAllCandidateParts_ModifyProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAllCandidateParts_ModifyProduct.ReadOnly = true;
             dgvAllCandidateParts_ModifyProduct.MultiSelect = false;
+
+            dgvPartsAssociatedWithProduct_ModifyProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPartsAssociatedWithProduct_ModifyProduct.ReadOnly = true;
+            dgvPartsAssociatedWithProduct_ModifyProduct.MultiSelect = false;
         }
 
         // Removes the default selection of the first row of the Data Grid
         private void OnDataBindingComplete_ModifyProduct(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dgvAllCandidateParts_ModifyProduct.ClearSelection();
+            dgvPartsAssociatedWithProduct_ModifyProduct.ClearSelection();
         }
 
         // Events that change the Text Box colors based on valid and invalid data
@@ -187,6 +192,34 @@ namespace Products_and_Parts
 
             // Closes the window
             this.Close();
+        }
+
+        // Adds a Part to the "Parts Associated With This Product" List
+        private void btnAdd_ModifyProduct_Click(object sender, EventArgs e)
+        {
+            if (dgvAllCandidateParts_ModifyProduct.SelectedRows.Count > 0)
+            {
+                // Determines which Part is selected in the data grid view
+                var selectedPart = dgvAllCandidateParts_ModifyProduct.SelectedRows[0];
+                int selectedPartID = (int)selectedPart.Cells["PartID"].Value;
+                // Retrieves the full Part details
+                Part returnedPart = Inventory.LookupPart(selectedPartID);
+                // Saves the Part to a temporty Binding List
+                Product.TemporaryNewAssociatedParts.Add(returnedPart);
+                // Displays the Part temporarily on the data grid view
+                dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryNewAssociatedParts;
+            }
+            else
+            {
+                MessageBox.Show("Please select a Part from the All Candidate Parts list.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        // Removes a Part from the "Parts Associated With This Product" List
+        private void btnDelete_ModifyProduct_Click(object sender, EventArgs e)
+        {
+
         }
 
         // Handles the close button click event
