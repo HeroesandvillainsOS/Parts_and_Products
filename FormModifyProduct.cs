@@ -140,6 +140,25 @@ namespace Products_and_Parts
                 MessageBox.Show("Inventory cannot be less than Min or greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            // Stores the selected Product's new values
+            int currentID = int.Parse(textBoxID_ModifyProduct.Text);
+            string newName = textBoxName_ModifyProduct.Text;
+            decimal newPrice = decimal.Parse(textBoxPriceCost_ModifyProduct.Text);
+            int newInventory = int.Parse(textBoxInventory_ModifyProduct.Text);
+            int newMax = int.Parse(textBoxMax_ModifyProduct.Text);
+            int newMin = int.Parse(textBoxMin_ModifyProduct.Text);
+
+            // Finds the selected Product's index position
+            int indexPosition = Inventory.GetIndexPositionWithProductID(Inventory.Products, currentID);
+            // Removes the old Product from the Binding List
+            Inventory.Products.RemoveAt(currentID);
+            // Adds the Product back into the Binding List
+            Product updatedProduct = new Product(currentID, newName, newPrice, newInventory, newMin, newMax);
+            Inventory.Products.Insert(indexPosition, updatedProduct);
+
+            // Closes the window
+            this.Close();
         }
 
         // Handles the close button click event
