@@ -42,7 +42,6 @@ namespace Products_and_Parts
         }
 
         // Events related to Products
-
         private void btnAddProducts_Main_Click(object sender, EventArgs e)
         {
             Inventory.OpenAddProductsForm();
@@ -117,7 +116,6 @@ namespace Products_and_Parts
         }
 
         // Events related to Parts
-
         private void btnAddParts_Main_Click(object sender, EventArgs e)
         {
             Inventory.OpenAddPartsForm();
@@ -229,7 +227,6 @@ namespace Products_and_Parts
         }
 
         // General Events
-
         private void btnExit_Main_Click(object sender, EventArgs e)
         {
             Inventory.CloseInventoryForm();

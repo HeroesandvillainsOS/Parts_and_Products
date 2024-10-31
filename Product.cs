@@ -5,8 +5,9 @@ namespace Products_and_Parts
     internal class Product
     {
         public static BindingList<Part> AssociatedParts { get; set; } = new BindingList<Part>();
-        public static BindingList<Part> TemporaryNewAssociatedParts { get; set; } = new BindingList<Part>();
-        public static BindingList<Part> TemporaryCurrentlyAssociatedParts { get; set; } = new BindingList<Part>();
+        public static BindingList<Part> TemporaryAssociatedParts { get; set; } = new BindingList<Part>();
+        public static BindingList<ProductPartAssociation> ProductsWithAssociatedParts { get; set; } = new BindingList<ProductPartAssociation>();
+        public static BindingList<Part> PartsAssociatedWithThisProduct { get; set; } = new BindingList<Part>();
 
         public int ProductID { get; set; }  
         public string Name { get; set; }    
@@ -14,8 +15,6 @@ namespace Products_and_Parts
         public int InStock { get; set; }    
         public int Min { get; set; }
         public int Max { get; set; }
-
-        // A static constructor for a one-time initialization of test data (will only generate once and not on every class instance)
 
         public Product(int productID, string name, decimal price, int inStock, int min, int max)
         {
