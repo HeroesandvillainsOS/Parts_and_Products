@@ -30,6 +30,17 @@ namespace Products_and_Parts
             AllParts.Add(new Outsourced(2, "Glass Display", 199.99m, 5, 1, 6, "Apple"));
             AllParts.Add(new Outsourced(3, "Wireless Mouse", 79.99m, 5, 2, 8, "Logitech"));
             AllParts.Add(new Outsourced(4, "Charger Cable", 29.99m, 11, 20, 10, "Anker"));
+
+            // Represents the initial list of Associated Parts with Products
+            Product.ProductsWithAssociatedParts.Add(new ProductPartAssociation(0, 0));
+            Product.ProductsWithAssociatedParts.Add(new ProductPartAssociation(0, 3));
+
+            // Represents the Initial List of Parts that are associated with products
+            Product.AssociatedParts.Add(new InHouse(0, "Power Supply", 299.99m, 15, 8, 30, 00100));
+            Product.AssociatedParts.Add(new Outsourced(2, "Glass Display", 199.99m, 5, 1, 6, "Apple"));
+            Product.AssociatedParts.Add(new Outsourced(3, "Wireless Mouse", 79.99m, 5, 2, 8, "Logitech"));
+
+            //Product.PartsAssociatedWithThisProduct.Add(new InHouse(0, "Power Supply", 299.99m, 15, 8, 30, 00100));
         }
 
         // Methods related to Products
