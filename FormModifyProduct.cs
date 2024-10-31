@@ -91,6 +91,34 @@ namespace Products_and_Parts
                 textBoxMin_ModifyProduct.BackColor = Color.OrangeRed;
         }
 
+        // Searches the Parts Inventory list. Highlights the first partial name match if found.
+        // Returns a warning message if a partial match for a Part cannnot be found
+        private void btnSearch_ModifyProduct_Click(object sender, EventArgs e)
+        {
+            string userInput = textBoxSearch_ModifyProduct.Text;
+            // Converts userInput to lowercase
+            userInput = userInput.ToLower();
+            bool matchFound = false;
+
+            for (int i = 0; i < Inventory.AllParts.Count; i++)
+            {
+                var part = Inventory.AllParts[i];
+                // Converts part name to lowercase
+                string lowerCasePartName = part.Name.ToLower();
+
+                if (lowerCasePartName.Contains(userInput))
+                {
+                    dgvAllCandidateParts_ModifyProduct.ClearSelection();
+                    dgvAllCandidateParts_ModifyProduct.Rows[i].Selected = true;
+                    matchFound = true;
+                    break;
+                }
+            }
+            if (!matchFound)
+                MessageBox.Show("No Parts matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
+                   MessageBoxIcon.Warning);
+        }
+
         // Handles the save button click event
         private void btnSave_ModifyProduct_Click(object sender, EventArgs e)
         {
@@ -140,6 +168,25 @@ namespace Products_and_Parts
                 MessageBox.Show("Inventory cannot be less than Min or greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            // Stores the selected Product's new values
+            int currentID = int.Parse(textBoxID_ModifyProduct.Text);
+            string newName = textBoxName_ModifyProduct.Text;
+            decimal newPrice = decimal.Parse(textBoxPriceCost_ModifyProduct.Text);
+            int newInventory = int.Parse(textBoxInventory_ModifyProduct.Text);
+            int newMax = int.Parse(textBoxMax_ModifyProduct.Text);
+            int newMin = int.Parse(textBoxMin_ModifyProduct.Text);
+
+            // Finds the selected Product's index position
+            int indexPosition = Inventory.GetIndexPositionWithProductID(Inventory.Products, currentID);
+            // Removes the old Product from the Binding List
+            Inventory.Products.RemoveAt(currentID);
+            // Adds the Product back into the Binding List
+            Product updatedProduct = new Product(currentID, newName, newPrice, newInventory, newMin, newMax);
+            Inventory.Products.Insert(indexPosition, updatedProduct);
+
+            // Closes the window
+            this.Close();
         }
 
         // Handles the close button click event

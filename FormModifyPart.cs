@@ -218,6 +218,38 @@ namespace Products_and_Parts
                     return;
                 }
             }
+
+            // Stores the selected Part's new values
+            int currentID = int.Parse(textBoxID_ModifyPart.Text);
+            string newName = textBoxName_ModifyPart.Text;
+            decimal newPrice = decimal.Parse(textBoxPriceCost_ModifyPart.Text);
+            int newInventory = int.Parse(textBoxInventory_ModifyPart.Text);
+            int newMax = int.Parse(textBoxMax_ModifyPart.Text);
+            int newMin = int.Parse(textBoxMin_ModifyPart.Text);
+            int newMachineID;
+            string newCompanyName;
+
+            // Finds the selected Part's index position
+            int indexPosition = Inventory.GetIndexPositionWithPartID(Inventory.AllParts, currentID);
+            // Removes the old Part from the Binding List
+            Inventory.AllParts.RemoveAt(currentID);
+            // Adds the Part back into the Binding List
+            if (radioBtnInHouse_ModifyPart.Checked == true)
+            {
+                newMachineID = int.Parse(textBoxMachineID_ModifyPart.Text);
+                Part updatedPart = new InHouse(currentID, newName, newPrice, newInventory, newMin, newMax, newMachineID);
+                Inventory.AllParts.Insert(indexPosition, updatedPart);
+            }
+
+            if (radioBtnOutsourced_ModifyPart.Checked == true)
+            {
+                newCompanyName = textBoxMachineID_ModifyPart.Text;
+                Part updatedPart = new Outsourced(currentID, newName, newPrice, newInventory, newMin, newMax, newCompanyName);
+                Inventory.AllParts.Insert(indexPosition, updatedPart);
+            }
+
+            // Closes the window
+            this.Close();
         }
 
         // Handles the close button click event

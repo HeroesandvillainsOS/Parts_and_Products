@@ -95,6 +95,7 @@
             this.btnSearch_AddProduct.TabIndex = 85;
             this.btnSearch_AddProduct.Text = "Search";
             this.btnSearch_AddProduct.UseVisualStyleBackColor = false;
+            this.btnSearch_AddProduct.Click += new System.EventHandler(this.btnSearch_AddProduct_Click);
             // 
             // btnSave_AddProduct
             // 

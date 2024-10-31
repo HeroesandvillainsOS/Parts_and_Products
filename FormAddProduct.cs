@@ -93,6 +93,34 @@ namespace Products_and_Parts
                 textBoxMin_AddProduct.BackColor = Color.OrangeRed;
         }
 
+        // Searches the Parts Inventory list. Highlights the first partial name match if found.
+        // Returns a warning message if a partial match for a Part cannnot be found
+        private void btnSearch_AddProduct_Click(object sender, EventArgs e)
+        {
+            string userInput = textBoxSearch_AddProduct.Text;
+            // Converts userInput to lowercase
+            userInput = userInput.ToLower();
+            bool matchFound = false;
+
+            for (int i = 0; i < Inventory.AllParts.Count; i++)
+            {
+                var part = Inventory.AllParts[i];
+                // Converts part name to lowercase
+                string lowerCasePartName = part.Name.ToLower();
+
+                if (lowerCasePartName.Contains(userInput))
+                {
+                    dgvAllCandidateParts_AddProduct.ClearSelection();
+                    dgvAllCandidateParts_AddProduct.Rows[i].Selected = true;
+                    matchFound = true;
+                    break;
+                }
+            }
+            if (!matchFound)
+                MessageBox.Show("No Parts matching the search criteria could be found.", "Warning", MessageBoxButtons.OK,
+                   MessageBoxIcon.Warning);
+        }
+
         // Handles the save button click event
         private void btnSave_AddProduct_Click(object sender, EventArgs e)
         {

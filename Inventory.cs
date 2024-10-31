@@ -4,6 +4,7 @@
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Products_and_Parts
 {
@@ -97,6 +98,17 @@ namespace Products_and_Parts
 
         public static void UpdateProduct(int productID, Product product) { }
 
+        // Returns an index position of a Product when a productID is passed in
+        public static int GetIndexPositionWithProductID(BindingList<Product> list, int productID)
+        {
+            for (int i = 0;  i < list.Count; i++)
+            {
+                if (list[i].ProductID == productID)
+                    return i;
+            }
+            return -1;
+        }
+
         // Methods related to Parts
 
         // Opens the Add Parts form when the "Add" button is clicked
@@ -177,6 +189,17 @@ namespace Products_and_Parts
         }
 
         public static void UpdatePart(int partID, Part part) { }
+
+        // Returns an index position of a Product when a productID is passed in
+        public static int GetIndexPositionWithPartID(BindingList<Part> list, int partID)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].PartID == partID)
+                    return i;
+            }
+            return -1;
+        }
 
         // Closes the program when the "Exit" button is clicked
         public static void CloseInventoryForm()
