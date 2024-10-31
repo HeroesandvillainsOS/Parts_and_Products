@@ -61,9 +61,9 @@
             this.labelPartsAssociatedWithProduct_ModifyProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPartsAssociatedWithProduct_ModifyProduct.Location = new System.Drawing.Point(530, 385);
             this.labelPartsAssociatedWithProduct_ModifyProduct.Name = "labelPartsAssociatedWithProduct_ModifyProduct";
-            this.labelPartsAssociatedWithProduct_ModifyProduct.Size = new System.Drawing.Size(233, 18);
+            this.labelPartsAssociatedWithProduct_ModifyProduct.Size = new System.Drawing.Size(242, 18);
             this.labelPartsAssociatedWithProduct_ModifyProduct.TabIndex = 111;
-            this.labelPartsAssociatedWithProduct_ModifyProduct.Text = "Parts Associated with this Product";
+            this.labelPartsAssociatedWithProduct_ModifyProduct.Text = "Parts Associated With This Product";
             // 
             // labelAllCandidateParts_AddProduct
             // 
@@ -128,6 +128,7 @@
             this.btnDelete_ModifyProduct.TabIndex = 105;
             this.btnDelete_ModifyProduct.Text = "Delete";
             this.btnDelete_ModifyProduct.UseVisualStyleBackColor = true;
+            this.btnDelete_ModifyProduct.Click += new System.EventHandler(this.btnDelete_ModifyProduct_Click);
             // 
             // btnAdd_ModifyProduct
             // 
@@ -138,6 +139,7 @@
             this.btnAdd_ModifyProduct.TabIndex = 104;
             this.btnAdd_ModifyProduct.Text = "Add";
             this.btnAdd_ModifyProduct.UseVisualStyleBackColor = true;
+            this.btnAdd_ModifyProduct.Click += new System.EventHandler(this.btnAdd_ModifyProduct_Click);
             // 
             // textBoxMin_ModifyProduct
             // 

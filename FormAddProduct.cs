@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -30,12 +31,17 @@ namespace Products_and_Parts
             dgvAllCandidateParts_AddProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAllCandidateParts_AddProduct.ReadOnly = true;
             dgvAllCandidateParts_AddProduct.MultiSelect = false;
+
+            dgvPartsAssociatedWithProduct_AddProduct.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvPartsAssociatedWithProduct_AddProduct.ReadOnly = true;
+            dgvPartsAssociatedWithProduct_AddProduct.MultiSelect = false;
         }
 
         // Removes the default selection of the first row of the Data Grid
         private void OnDataBindingComplete_AddProduct(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             dgvAllCandidateParts_AddProduct.ClearSelection();
+            dgvPartsAssociatedWithProduct_AddProduct.ClearSelection();
         }
 
         // Events that change the Text Box colors based on valid and invalid data
@@ -184,6 +190,36 @@ namespace Products_and_Parts
 
             // Closes the Add Product form when a new product is added
             this.Close();
+        }
+
+        // Adds a Part to the "Parts Associated With This Product" List. 
+        // Display purposes only. Actual Part addition is handled on the Product save click event.
+        private void btnAdd_AddProduct_Click(object sender, EventArgs e)
+        {
+            if(dgvAllCandidateParts_AddProduct.SelectedRows.Count > 0)
+            {
+                // Determines which Part is selected in the data grid view
+                var selectedPart = dgvAllCandidateParts_AddProduct.SelectedRows[0];
+                int selectedPartID = (int)selectedPart.Cells["PartID"].Value;
+                // Retrieves the full Part details
+                Part returnedPart = Inventory.LookupPart(selectedPartID);
+                // Saves the Part to a temporty Binding List
+                Product.TemporaryNewAssociatedParts.Add(returnedPart);
+                // Displays the Part temporarily on the data grid view
+                dgvPartsAssociatedWithProduct_AddProduct.DataSource = Product.TemporaryNewAssociatedParts;
+            }
+            else
+            {
+                MessageBox.Show("Please select a Part from the All Candidate Parts list.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+        }
+
+        // Removes a Part from the "Parts Associated With This Product" List
+        // Display purposes only. Actual Part removal is handled on the Product save click event.
+        private void btnDelete_AddProduct_Click(object sender, EventArgs e)
+        {
+           
         }
 
         // Handles the close button click event
