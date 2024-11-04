@@ -228,47 +228,34 @@ namespace Products_and_Parts
         {
             if (dgvAllCandidateParts_ModifyProduct.SelectedRows.Count > 0)
             {
-                // Gets the details of the selected Part and the current Product
+                // Gets the details of the selected Part
                 var selectedPart = dgvAllCandidateParts_ModifyProduct.SelectedRows[0];
                 int selectedPartID = (int)selectedPart.Cells["PartID"].Value;
-                int selectedProductID = int.Parse(textBoxID_ModifyProduct.Text);
 
-                // Retrieves the full Part details
+                // Adds the "PartsAssociatedWithThisProduct" Binding List items to the "TemporaryAssociatedParts" Binding List
+                if (Product.PartsAssociatedWithThisProduct.Count > 0)
+                {
+                    Product.TemporaryAssociatedParts = Product.PartsAssociatedWithThisProduct;
+                }
+
+                // Retrieves the full Part details for the selected Part
                 Part returnedPart = Inventory.LookupPart(selectedPartID);
 
-                // A list to hold the TemporaryAssociatedParts Binding List info
-                List<int> partIDs = new List<int>();
-                foreach (var part in Product.TemporaryAssociatedParts.ToList())
+                // Checks to see if the selected Part is already asssociated with the current Product
+                foreach (var part in Product.TemporaryAssociatedParts)
                 {
-                    partIDs.Add(part.PartID);
-                }
-
-                if (Product.PartsAssociatedWithThisProduct.Count == 0)
-                {
-                    // Ensures TemporaryAssociatedParts can't contain duplicate parts
-                    if (Product.TemporaryAssociatedParts.Count > 0)
+                    if (part.PartID == returnedPart.PartID)
                     {
-                        if (partIDs.Contains(selectedPartID))
-                        {
-                            MessageBox.Show("The selected Part is already associated with this Product.", "Warning",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-
-                        // Adds a Part to the TemporaryAssociatedParts Binding List and displays it if the list doesn't begin empty
-                        Product.TemporaryAssociatedParts.Add(returnedPart);
-                        dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryAssociatedParts;
-                    }
-
-                    // Adds a Part to the TemporaryAssociatedParts Binding List and displays it if the list begins empty
-                    else if (Product.TemporaryAssociatedParts.Count == 0)
-                    {
-                        Product.TemporaryAssociatedParts.Add(returnedPart);
-                        dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryAssociatedParts;
+                        MessageBox.Show("This Part is already Associated with the current Product.", "Warning", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
                 }
+
+                // Adds the selected Part to the "TemporaryAssociatedParts" Binding List and displays it on the Data Grid View
+                Product.TemporaryAssociatedParts.Add(returnedPart);
+                dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryAssociatedParts;
             }
-
             else
             {
                 MessageBox.Show("Please select a Part from the All Candidate Parts list.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
