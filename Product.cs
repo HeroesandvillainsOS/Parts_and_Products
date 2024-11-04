@@ -4,9 +4,20 @@ namespace Products_and_Parts
 {
     internal class Product
     {
+        // Maintains a list of every part that is associated with a product
         public static BindingList<Part> AssociatedParts { get; set; } = new BindingList<Part>();
+
+        // Temporarily holds a list of parts to associate with the selected product,
+        // ... allowing the user to either "save" them to the "ProductsWithAssociatedParts" Binding List,
+        // ... or "cancel" the pairing.
         public static BindingList<Part> TemporaryAssociatedParts { get; set; } = new BindingList<Part>();
+
+        // Represents a master list of ProductID's with their associated parts as a kind of "value key" pairing.
+        // Holds two ints in each index, IE. 1,2, which means ProductID 1 is associated with PartID 2.
         public static BindingList<ProductPartAssociation> ProductsWithAssociatedParts { get; set; } = new BindingList<ProductPartAssociation>();
+
+        // Acts as a temporary list that displays all parts associated with the Product selected on the Add and Modify Product form
+        // Gets reset every time the form is opened, and pulls its data from the "ProductsWtihAssociatedParts" Binding List "value key" pair
         public static BindingList<Part> PartsAssociatedWithThisProduct { get; set; } = new BindingList<Part>();
 
         public int ProductID { get; set; }  
