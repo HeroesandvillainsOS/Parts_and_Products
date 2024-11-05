@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Products_and_Parts
 {
@@ -41,22 +42,24 @@ namespace Products_and_Parts
 
             // Loads the AllParts Binding List into the All Candidate Parts data grid view
             dgvAllCandidateParts_ModifyProduct.DataSource = Inventory.AllParts;
-            
+
             // Ensures the "PartsAssociatedWithThisProduct" Binding List is cleared every time the Modify Product form is opened
             Product.PartsAssociatedWithThisProduct.Clear();
+            Product.TemporaryAssociatedParts.Clear();
 
-            // Retrieves the current Product ID
+            // Retrieves the currently selected Product ID
             int currentProductID = int.Parse(textBoxID_ModifyProduct.Text);
 
-            // Searches to see if the Product has any Parts associated with it
+            // Searches to see if the selected Product has any Parts associated with it
             foreach (var productWithAssociatedParts in Product.ProductsWithAssociatedParts)
             {
                 if (productWithAssociatedParts.ProductID == currentProductID)
                 {
-                    // Finds the Product's associated Part in the "AssociatedParts" Binding List
+                    // Finds the Part's information
                     Part partToAdd = Inventory.LookupPart(productWithAssociatedParts.PartID);
 
-                    // Adds the Part to the Binding List only if it's not already in the list
+                    // Adds the Part to the "PartsAssociatedWithThisProduct" Binding List only if it's not already in the list
+                    // Which is used to display the part(s) as being associated with the current product on the Data Grid View
                     if (!Product.PartsAssociatedWithThisProduct.Contains(partToAdd))
                     {
                         Product.PartsAssociatedWithThisProduct.Add(partToAdd);
@@ -64,7 +67,7 @@ namespace Products_and_Parts
                 }
             }
 
-            // Displays the Product's Associated Parts in the data grid view
+            // Displays the Product's complete list of Associated Parts in the data grid view
             dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.PartsAssociatedWithThisProduct;
         }
 
@@ -225,14 +228,32 @@ namespace Products_and_Parts
         {
             if (dgvAllCandidateParts_ModifyProduct.SelectedRows.Count > 0)
             {
-                // Determines which Part is selected in the data grid view
+                // Gets the details of the selected Part
                 var selectedPart = dgvAllCandidateParts_ModifyProduct.SelectedRows[0];
                 int selectedPartID = (int)selectedPart.Cells["PartID"].Value;
+
+                // Adds the "PartsAssociatedWithThisProduct" Binding List items to the "TemporaryAssociatedParts" Binding List
+                if (Product.PartsAssociatedWithThisProduct.Count > 0)
+                {
+                    Product.TemporaryAssociatedParts = Product.PartsAssociatedWithThisProduct;
+                }
+
                 // Retrieves the full Part details
                 Part returnedPart = Inventory.LookupPart(selectedPartID);
-                // Saves the Part to a temporty Binding List
+
+                // Checks to see if the selected Part is already asssociated with the current Product
+                foreach (var part in Product.TemporaryAssociatedParts)
+                {
+                    if (part.PartID == returnedPart.PartID)
+                    {
+                        MessageBox.Show("This Part is already Associated with the current Product.", "Warning", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                // Adds the selected Part to the "TemporaryAssociatedParts" Binding List and displays it on the Data Grid View
                 Product.TemporaryAssociatedParts.Add(returnedPart);
-                // Displays the Part temporarily on the Associated Parts data grid view
                 dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryAssociatedParts;
             }
             else
@@ -245,7 +266,39 @@ namespace Products_and_Parts
         // Removes a Part from the "Parts Associated With This Product" List
         private void btnDelete_ModifyProduct_Click(object sender, EventArgs e)
         {
+            if (dgvPartsAssociatedWithProduct_ModifyProduct.SelectedRows.Count > 0)
+            {
+                Debug.WriteLine(Product.TemporaryAssociatedParts.Count);
+                // Determines which Part is selected in the Data Grid View
+                var selectedPart = dgvPartsAssociatedWithProduct_ModifyProduct.SelectedRows[0];
+                int selectedPartID = (int)selectedPart.Cells["PartID"].Value;
+                int partIndex;
 
+                // Adds the "PartsAssociatedWithThisProduct" Binding List items to the "TemporaryAssociatedParts" Binding List
+                if (Product.PartsAssociatedWithThisProduct.Count > 0)
+                {
+                    Product.TemporaryAssociatedParts = Product.PartsAssociatedWithThisProduct;
+                }
+
+                // Iterates through the "TemporaryAssociatedParts" Binding list
+                for (int i = 0; i < Product.TemporaryAssociatedParts.Count; i++)
+                {
+                    // Removes the selected part from the "TemporaryAssociatedParts" Binding List
+                    if (Product.TemporaryAssociatedParts[i].PartID == selectedPartID)
+                    {
+                        partIndex = i;
+                        Product.TemporaryAssociatedParts.RemoveAt(partIndex);
+                    }                    
+                }           
+                // Displays an updated list of associated Parts on the Data Grid View
+                dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryAssociatedParts;
+                Debug.WriteLine(Product.TemporaryAssociatedParts.Count);
+            }
+            else
+            {
+                MessageBox.Show("Please select a Part to delete.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
         }
 
         // Handles the close button click event
