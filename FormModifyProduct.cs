@@ -238,7 +238,7 @@ namespace Products_and_Parts
                     Product.TemporaryAssociatedParts = Product.PartsAssociatedWithThisProduct;
                 }
 
-                // Retrieves the full Part details for the selected Part
+                // Retrieves the full Part details
                 Part returnedPart = Inventory.LookupPart(selectedPartID);
 
                 // Checks to see if the selected Part is already asssociated with the current Product
@@ -268,15 +268,31 @@ namespace Products_and_Parts
         {
             if (dgvPartsAssociatedWithProduct_ModifyProduct.SelectedRows.Count > 0)
             {
-                // Determines which Part is selected in the data grid view
+                Debug.WriteLine(Product.TemporaryAssociatedParts.Count);
+                // Determines which Part is selected in the Data Grid View
                 var selectedPart = dgvPartsAssociatedWithProduct_ModifyProduct.SelectedRows[0];
                 int selectedPartID = (int)selectedPart.Cells["PartID"].Value;
-                // Retrieves the full Part details
-                Part returnedPart = Inventory.LookupPart(selectedPartID);
-                // Saves the Part to a temporty Binding List
-                Product.TemporaryAssociatedParts.Remove(returnedPart);
-                // Displays the Part temporarily on the Associated Parts data grid view
+                int partIndex;
+
+                // Adds the "PartsAssociatedWithThisProduct" Binding List items to the "TemporaryAssociatedParts" Binding List
+                if (Product.PartsAssociatedWithThisProduct.Count > 0)
+                {
+                    Product.TemporaryAssociatedParts = Product.PartsAssociatedWithThisProduct;
+                }
+
+                // Iterates through the "TemporaryAssociatedParts" Binding list
+                for (int i = 0; i < Product.TemporaryAssociatedParts.Count; i++)
+                {
+                    // Removes the selected part from the "TemporaryAssociatedParts" Binding List
+                    if (Product.TemporaryAssociatedParts[i].PartID == selectedPartID)
+                    {
+                        partIndex = i;
+                        Product.TemporaryAssociatedParts.RemoveAt(partIndex);
+                    }                    
+                }           
+                // Displays an updated list of associated Parts on the Data Grid View
                 dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryAssociatedParts;
+                Debug.WriteLine(Product.TemporaryAssociatedParts.Count);
             }
             else
             {
