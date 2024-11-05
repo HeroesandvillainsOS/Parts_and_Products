@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Collections.Generic;
 
 namespace Products_and_Parts
 {
@@ -23,7 +22,7 @@ namespace Products_and_Parts
             int selectedMin = (int)selectedRow.Cells["Min"].Value;
             int selectedMax = (int)selectedRow.Cells["Max"].Value;
 
-            // Sets the values of the Add Product text boxes to the currently selected Product
+            // Sets the values of the Modify Product text boxes to the currently selected Product
             textBoxID_ModifyProduct.Text = selectedProductID.ToString();
             textBoxName_ModifyProduct.Text = selectedName;
             textBoxPriceCost_ModifyProduct.Text = selectedPrice.ToString();
@@ -153,76 +152,6 @@ namespace Products_and_Parts
                    MessageBoxIcon.Warning);
         }
 
-        // Handles the save button click event
-        private void btnSave_ModifyProduct_Click(object sender, EventArgs e)
-        {
-            bool onlyNumbers = textBoxName_ModifyProduct.Text.All(chr => !char.IsLetter(chr));
-
-            // Checks to ensure text boxes only use valid data types
-            if (onlyNumbers)
-            {
-                MessageBox.Show("Name must contain letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (!decimal.TryParse(textBoxPriceCost_ModifyProduct.Text, out _))
-            {
-                MessageBox.Show("Price can only contain numbers and decimals.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (!int.TryParse(textBoxInventory_ModifyProduct.Text, out _))
-            {
-                MessageBox.Show("Inventory can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-            if (!int.TryParse(textBoxMax_ModifyProduct.Text, out _))
-            {
-                MessageBox.Show("Max can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (!int.TryParse(textBoxMin_ModifyProduct.Text, out _))
-            {
-                MessageBox.Show("Min can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (int.Parse(textBoxMax_ModifyProduct.Text) < int.Parse(textBoxMin_ModifyProduct.Text))
-            {
-                MessageBox.Show("Min cannot be greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (int.Parse(textBoxInventory_ModifyProduct.Text) < int.Parse(textBoxMin_ModifyProduct.Text) ||
-              int.Parse(textBoxInventory_ModifyProduct.Text) > int.Parse(textBoxMax_ModifyProduct.Text))
-            {
-                MessageBox.Show("Inventory cannot be less than Min or greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Stores the selected Product's new values
-            int currentID = int.Parse(textBoxID_ModifyProduct.Text);
-            string newName = textBoxName_ModifyProduct.Text;
-            decimal newPrice = decimal.Parse(textBoxPriceCost_ModifyProduct.Text);
-            int newInventory = int.Parse(textBoxInventory_ModifyProduct.Text);
-            int newMax = int.Parse(textBoxMax_ModifyProduct.Text);
-            int newMin = int.Parse(textBoxMin_ModifyProduct.Text);
-
-            // Finds the selected Product's index position
-            int indexPosition = Inventory.GetIndexPositionWithProductID(Inventory.Products, currentID);
-            // Removes the old Product from the Binding List
-            Inventory.Products.RemoveAt(currentID);
-            // Adds the Product back into the Binding List
-            Product updatedProduct = new Product(currentID, newName, newPrice, newInventory, newMin, newMax);
-            Inventory.Products.Insert(indexPosition, updatedProduct);
-
-            // Closes the window
-            this.Close();
-        }
-
         // Adds a Part to the "Parts Associated With This Product" List
         private void btnAdd_ModifyProduct_Click(object sender, EventArgs e)
         {
@@ -268,37 +197,144 @@ namespace Products_and_Parts
         {
             if (dgvPartsAssociatedWithProduct_ModifyProduct.SelectedRows.Count > 0)
             {
-                Debug.WriteLine(Product.TemporaryAssociatedParts.Count);
-                // Determines which Part is selected in the Data Grid View
-                var selectedPart = dgvPartsAssociatedWithProduct_ModifyProduct.SelectedRows[0];
-                int selectedPartID = (int)selectedPart.Cells["PartID"].Value;
-                int partIndex;
+                var result = MessageBox.Show("Are you sure you want to delete this Part?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
-                // Adds the "PartsAssociatedWithThisProduct" Binding List items to the "TemporaryAssociatedParts" Binding List
-                if (Product.PartsAssociatedWithThisProduct.Count > 0)
+                if (result == DialogResult.Cancel)
+                    return;
+                
+                if (result == DialogResult.OK)
                 {
-                    Product.TemporaryAssociatedParts = Product.PartsAssociatedWithThisProduct;
+                    // Determines which Part is selected in the Data Grid View
+                    var selectedPart = dgvPartsAssociatedWithProduct_ModifyProduct.SelectedRows[0];
+                    int selectedPartID = (int)selectedPart.Cells["PartID"].Value;
+                    int partIndex;
+
+                    // Adds the "PartsAssociatedWithThisProduct" Binding List items to the "TemporaryAssociatedParts" Binding List
+                    if (Product.PartsAssociatedWithThisProduct.Count > 0)
+                    {
+                        Product.TemporaryAssociatedParts = Product.PartsAssociatedWithThisProduct;
+                    }
+
+                    // Iterates through the "TemporaryAssociatedParts" Binding list
+                    for (int i = 0; i < Product.TemporaryAssociatedParts.Count; i++)
+                    {
+                        // Removes the selected part from the "TemporaryAssociatedParts" Binding List
+                        if (Product.TemporaryAssociatedParts[i].PartID == selectedPartID)
+                        {
+                            partIndex = i;
+                            Product.TemporaryAssociatedParts.RemoveAt(partIndex);
+                        }
+                    }
+                    // Displays an updated list of associated Parts on the Data Grid View
+                    dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryAssociatedParts;
+                }
+                else
+                {
+                    MessageBox.Show("Please select a Part to delete.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }               
+        }
+
+        // Handles the save button click event
+        private void btnSave_ModifyProduct_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to save this Product?", "Warning", MessageBoxButtons.OKCancel, 
+                MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Cancel)
+                return;
+
+            if (result == DialogResult.OK)
+            {
+                // SAVES THE PRODUCT SIDE OF THE FORM
+
+                bool onlyNumbers = textBoxName_ModifyProduct.Text.All(chr => !char.IsLetter(chr));
+
+                // Checks to ensure text boxes only use valid data types
+                if (onlyNumbers)
+                {
+                    MessageBox.Show("Name must contain letters.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
-                // Iterates through the "TemporaryAssociatedParts" Binding list
-                for (int i = 0; i < Product.TemporaryAssociatedParts.Count; i++)
+                if (!decimal.TryParse(textBoxPriceCost_ModifyProduct.Text, out _))
                 {
-                    // Removes the selected part from the "TemporaryAssociatedParts" Binding List
-                    if (Product.TemporaryAssociatedParts[i].PartID == selectedPartID)
+                    MessageBox.Show("Price can only contain numbers and decimals.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!int.TryParse(textBoxInventory_ModifyProduct.Text, out _))
+                {
+                    MessageBox.Show("Inventory can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                if (!int.TryParse(textBoxMax_ModifyProduct.Text, out _))
+                {
+                    MessageBox.Show("Max can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!int.TryParse(textBoxMin_ModifyProduct.Text, out _))
+                {
+                    MessageBox.Show("Min can only contain numbers.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (int.Parse(textBoxMax_ModifyProduct.Text) < int.Parse(textBoxMin_ModifyProduct.Text))
+                {
+                    MessageBox.Show("Min cannot be greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (int.Parse(textBoxInventory_ModifyProduct.Text) < int.Parse(textBoxMin_ModifyProduct.Text) ||
+                  int.Parse(textBoxInventory_ModifyProduct.Text) > int.Parse(textBoxMax_ModifyProduct.Text))
+                {
+                    MessageBox.Show("Inventory cannot be less than Min or greater than Max.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Stores the selected Product's new values
+                int currentID = int.Parse(textBoxID_ModifyProduct.Text);
+                string newName = textBoxName_ModifyProduct.Text;
+                decimal newPrice = decimal.Parse(textBoxPriceCost_ModifyProduct.Text);
+                int newInventory = int.Parse(textBoxInventory_ModifyProduct.Text);
+                int newMax = int.Parse(textBoxMax_ModifyProduct.Text);
+                int newMin = int.Parse(textBoxMin_ModifyProduct.Text);
+
+                // Finds the selected Product's index position
+                int indexPosition = Inventory.GetIndexPositionWithProductID(Inventory.Products, currentID);
+                // Removes the old Product from the Binding List
+                Inventory.Products.RemoveAt(currentID);
+                // Adds the Product back into the Binding List
+                Product updatedProduct = new Product(currentID, newName, newPrice, newInventory, newMin, newMax);
+                Inventory.Products.Insert(indexPosition, updatedProduct);
+
+                // SAVES THE PART SIDE OF THE FORM
+
+                // Removes all previous occurrences of the current Product & its associated Parts from the "ProductsWithAssociatedParts" Binding List 
+                foreach (var productWithAssociatedPart in Product.ProductsWithAssociatedParts.ToList())
+                {
+                    if (productWithAssociatedPart.ProductID == currentID)
+                        Product.ProductsWithAssociatedParts.Remove(productWithAssociatedPart);
+                }
+
+                // Saves all Parts that are currently associated with the Product back into the "ProductsWithAssociatedParts" Binding List
+                if (dgvPartsAssociatedWithProduct_ModifyProduct.Rows.Count > 0)
+                {
+                    foreach (DataGridViewRow row in dgvPartsAssociatedWithProduct_ModifyProduct.Rows)
                     {
-                        partIndex = i;
-                        Product.TemporaryAssociatedParts.RemoveAt(partIndex);
-                    }                    
-                }           
-                // Displays an updated list of associated Parts on the Data Grid View
-                dgvPartsAssociatedWithProduct_ModifyProduct.DataSource = Product.TemporaryAssociatedParts;
-                Debug.WriteLine(Product.TemporaryAssociatedParts.Count);
-            }
-            else
-            {
-                MessageBox.Show("Please select a Part to delete.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                        int currentPartID = (int)row.Cells["PartID"].Value;
+                        ProductPartAssociation productPartAssociation = new ProductPartAssociation(currentID, currentPartID);
+                        Product.ProductsWithAssociatedParts.Add(productPartAssociation);
+                    }
+                }
+
+                // Closes the window
+                this.Close();
+            }         
         }
 
         // Handles the close button click event
