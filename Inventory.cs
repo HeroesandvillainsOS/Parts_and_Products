@@ -106,8 +106,27 @@ namespace Products_and_Parts
             return null;
         }
 
-        // CAN USE TO UPDATE PRODUCT INFORMATION TO PASS ALONG NEW DETAILS ABOUT THE PRODUCT TO THE PRODUCTS BINDING LIST
-        public static void UpdateProduct(int productID, Product product) { }
+        // Saves the Product information to the Inventory.Products Binding List
+        public static void UpdateProduct(int productID, Product product)
+        {
+            Product currentProduct = Inventory.LookupProduct(productID);
+
+            if (currentProduct ==  null)
+                MessageBox.Show("No Products with this Product ID could be found.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            
+            else
+            {
+                // Deletes the previous reference to the Product in the Inventory.Products Binding List
+                foreach (Product individualProduct in Inventory.Products)
+                {
+                    if (individualProduct.ProductID == productID)
+                        Inventory.Products.Remove(individualProduct);
+                }
+
+                // Saves the Product's new information to the Inventory.Products Binding List
+                Inventory.Products.Add(currentProduct);
+            }
+        }
 
         // Returns an index position of a Product when a productID is passed in
         public static int GetIndexPositionWithProductID(BindingList<Product> list, int productID)
@@ -140,18 +159,15 @@ namespace Products_and_Parts
             modifyPartForm.Show();
         }
 
-        // Adds a new part item to the AllParts Binding List
+        // Adds a new Part item to the AllParts Binding List
         public static void AddPart(Part part)
         {
             Inventory.AllParts.Add(part);
         }
 
+        // Returns true if a Part isn't assoicated with any Products and can safely be deleted 
         public static bool DeletePart(Part part)
         {
-            // THIS WILL BE USED TO CHECK TO SEE IF PART IS ASSOCIATED WITH ANY PRODUCTS
-            // IF YES, IT WILL RETURN FALSE AND THE PART CANNOT BE DELETED
-            // IF NO, IT WILL RETURN TRUE, ALLOWING THE PART TO BE DELETED
-
             foreach (var productWithPartAssociation in Product.ProductsWithAssociatedParts)
             {
                 if (productWithPartAssociation.PartID == part.PartID)
@@ -205,8 +221,27 @@ namespace Products_and_Parts
             return null;
         }
 
-        // CAN USE TO UPDATE PART INFORMATION TO PASS ALONG NEW DETAILS ABOUT THE PART TO THE ALL PARTS BINDING LIST
-        public static void UpdatePart(int partID, Part part) { }
+        // Saves the Part information to the Inventory.AllParts Binding List
+        public static void UpdatePart(int partID, Part part)
+        {
+            Part currentPart = Inventory.LookupPart(partID);
+
+            if (currentPart == null)
+                MessageBox.Show("No Parts with this Part ID could be found.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            else
+            {
+                // Deletes the previous reference to the Part in the Inventory.AllParts Binding List
+                foreach (Part individualPart in Inventory.AllParts)
+                {
+                    if (individualPart.PartID == partID)
+                        Inventory.AllParts.Remove(individualPart);
+                }
+
+                // Saves the Part's new information to the Inventory.AllParts Binding List
+                Inventory.AllParts.Add(currentPart);
+            }
+        }
 
         // Returns an index position of a Product when a productID is passed in
         public static int GetIndexPositionWithPartID(BindingList<Part> list, int partID)

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace Products_and_Parts
 {
@@ -38,23 +39,43 @@ namespace Products_and_Parts
             Max = max;
         }
 
-        // WILL USE TO ADD A PART TO THE ALL ASSOCIATED PARTS BINDING LIST WHEN SAVE BUTTON CLICKED
+        // Adds a Part to the Associated Parts Binding List
         public static void AddAssociatedPart(Part part)
         {
+            if (AssociatedParts.Contains(part))
+            {
+                MessageBox.Show("This Part is already associated with at least one Product", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            else
+                AssociatedParts.Add(part);
         }
 
-        // CAN ALSO USE TO DELETE AN ASSOCIATED PART FROM THE ALL ASSOCIATED PARTS BINDING LIST WHEN SAVE BUTTON CLICKED
-        // IF RETURNS TRUE, DELETE PART FROM ALL ASSOCIATED PARTS BINDING LIST. IF FALSE, DON'T DELETE AND DISPLAY MESSAGE.
+        // Returns true if a Part matching the partID exits in the Associated Parts Binding List
         public static bool RemoveAssociatedPart(int partID)
         {
-            return true;
+            foreach (Part associatedPart in AssociatedParts)
+            {
+                if (associatedPart.PartID == partID)
+                    return true;
+            }
+
+            MessageBox.Show("No Part is associated with this Part ID.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return false;
         }
 
-        // CAN USE TO GET FULL PART DETAILS FROM ALL ASSOCIATED PARTS BINDING LIST BY ENTERING A PART ID
-        // IF NULL, MAYBE A MESSAGE DISPLAYS SAYING THE PART IS NOT ASSOCIATED WITH ANY PRODUCTS
+        // Returns a Part if a matching one exists in the Associated Parts Binding List
         public static Part LookupAssociatedPart(int partID)
         {
+            foreach (Part associatedPart in AssociatedParts)
+            {
+                if (associatedPart.PartID == partID)
+                {
+                    Part returnedPart = Inventory.LookupPart(partID);
+                    return returnedPart;
+                }
+            }
             return null;
         }
     }
