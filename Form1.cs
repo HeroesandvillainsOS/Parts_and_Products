@@ -41,7 +41,8 @@ namespace Products_and_Parts
             dgvParts.ClearSelection();
         }
 
-        // Events related to Products
+        // EVENTS RELATED TO PRODUCTS
+
         private void btnAddProducts_Main_Click(object sender, EventArgs e)
         {
             Inventory.OpenAddProductsForm();
@@ -115,7 +116,8 @@ namespace Products_and_Parts
                    MessageBoxIcon.Warning);
         }
 
-        // Events related to Parts
+        // EVENTS RELATED TO PARTS
+
         private void btnAddParts_Main_Click(object sender, EventArgs e)
         {
             Inventory.OpenAddPartsForm();
@@ -145,47 +147,60 @@ namespace Products_and_Parts
                 int selectedMachineID;
                 string selectedCompanyName;
 
-                // Determines if the part selected is InHouse or Outsourced
-                if (Inventory.AllParts[selectedID] is InHouse inHousePart)
+                Part selectedPart = Inventory.LookupPart(selectedID);
+                bool isPartAssociatedWithProducts = Inventory.DeletePart(selectedPart);
+
+                if (!isPartAssociatedWithProducts)
                 {
-                    selectedMachineID = inHousePart.MachineID;
-                    Part partToDelete = new InHouse(selectedID, selectedName, selectedPrice, selectedInStock, selectedMin,
-                         selectedMax, selectedMachineID);
-                    // Checks if the part is allowed to be deleted
-                    bool canBeDeleted = Inventory.DeletePart(partToDelete);
-
-                    // Warns the user and allows them to delete the selected part
-                    if (canBeDeleted)
-                    {
-                        DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-                        if (result == DialogResult.OK)
-                            dgvParts.Rows.RemoveAt(selectedID);
-                        else
-                            return;
-                    }
+                    MessageBox.Show("This Part cannot be deleted because it is associated with a Product.", "Warning", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
-                // Determines if the part selected is InHouse or Outsourced
-                else if (Inventory.AllParts[selectedID] is Outsourced outsourcedPart)
+                if (isPartAssociatedWithProducts)
                 {
-                    selectedCompanyName = outsourcedPart.CompanyName;
-                    Part partToDelete = new Outsourced(selectedID, selectedName, selectedPrice, selectedInStock, selectedMin,
-                         selectedMax, selectedCompanyName);
-                    // checks if the part is allowed to be deleted
-                    bool canBeDeleted = Inventory.DeletePart(partToDelete);
-
-                    // Warns the user and allows them to delete the selected part
-                    if (canBeDeleted)
+                    // Determines if the part selected is InHouse or Outsourced
+                    if (Inventory.AllParts[selectedID] is InHouse inHousePart)
                     {
-                        DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        selectedMachineID = inHousePart.MachineID;
+                        Part partToDelete = new InHouse(selectedID, selectedName, selectedPrice, selectedInStock, selectedMin,
+                             selectedMax, selectedMachineID);
+                        // Checks if the part is allowed to be deleted
+                        bool canBeDeleted = Inventory.DeletePart(partToDelete);
 
-                        if (result == DialogResult.OK)
-                            dgvParts.Rows.RemoveAt(selectedID);
-                        else
-                            return;
+                        // Warns the user and allows them to delete the selected part
+                        if (canBeDeleted)
+                        {
+                            DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                            if (result == DialogResult.OK)
+                                dgvParts.Rows.RemoveAt(selectedID);
+                            else
+                                return;
+                        }
                     }
 
+                    // Determines if the part selected is InHouse or Outsourced
+                    else if (Inventory.AllParts[selectedID] is Outsourced outsourcedPart)
+                    {
+                        selectedCompanyName = outsourcedPart.CompanyName;
+                        Part partToDelete = new Outsourced(selectedID, selectedName, selectedPrice, selectedInStock, selectedMin,
+                             selectedMax, selectedCompanyName);
+                        // checks if the part is allowed to be deleted
+                        bool canBeDeleted = Inventory.DeletePart(partToDelete);
+
+                        // Warns the user and allows them to delete the selected part
+                        if (canBeDeleted)
+                        {
+                            DialogResult result = MessageBox.Show("Are you sure you want to permanently delete this Part?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                            if (result == DialogResult.OK)
+                                dgvParts.Rows.RemoveAt(selectedID);
+                            else
+                                return;
+                        }
+
+                    }
                 }
             }
 
