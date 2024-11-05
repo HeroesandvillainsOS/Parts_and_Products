@@ -43,7 +43,7 @@ namespace Products_and_Parts
             //Product.PartsAssociatedWithThisProduct.Add(new InHouse(0, "Power Supply", 299.99m, 15, 8, 30, 00100));
         }
 
-        // Methods related to Products
+        // METHODS RELATED TO PRODUCTS
 
         // Opens the Add Products form when the "Add" button is clicked
         public static void OpenAddProductsForm()
@@ -120,7 +120,7 @@ namespace Products_and_Parts
             return -1;
         }
 
-        // Methods related to Parts
+        // METHODS RELATED TO PARTS
 
         // Opens the Add Parts form when the "Add" button is clicked
         public static void OpenAddPartsForm()
@@ -151,6 +151,12 @@ namespace Products_and_Parts
             // THIS WILL BE USED TO CHECK TO SEE IF PART IS ASSOCIATED WITH ANY PRODUCTS
             // IF YES, IT WILL RETURN FALSE AND THE PART CANNOT BE DELETED
             // IF NO, IT WILL RETURN TRUE, ALLOWING THE PART TO BE DELETED
+
+            foreach (var productWithPartAssociation in Product.ProductsWithAssociatedParts)
+            {
+                if (productWithPartAssociation.PartID == part.PartID)
+                    return false;
+            }
             return true;
         }
 

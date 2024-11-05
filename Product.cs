@@ -13,7 +13,8 @@ namespace Products_and_Parts
         public static BindingList<Part> TemporaryAssociatedParts { get; set; } = new BindingList<Part>();
 
         // Represents a master list of ProductID's with their associated parts as a kind of "value key" pairing.
-        // Holds two ints in each index, IE. 1,2, which means ProductID 1 is associated with PartID 2.
+        // A "ProductPartAssociation" item holds two ints in each index, IE. 1,2, which means ProductID 1 is associated with PartID 2.
+        // "ProductsWithAssociatedParts" then holds this "value key" reference.
         public static BindingList<ProductPartAssociation> ProductsWithAssociatedParts { get; set; } = new BindingList<ProductPartAssociation>();
 
         // Acts as a temporary list that displays all parts associated with the Product selected on the Add and Modify Product form
