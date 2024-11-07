@@ -1,4 +1,6 @@
-﻿using System;
+﻿// This script handles the logic for the Modify Product form
+
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;

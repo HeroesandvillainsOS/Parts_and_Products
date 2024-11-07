@@ -1,5 +1,5 @@
 ﻿// This script handles the overall logic for the Main Inventory form.
-// Acts as a master class for referencing the Products and Parts related classes, and closing the application.
+// Acts as a master class for referencing the Products and Parts related classes, and other events like closing the application.
 
 using System.Windows.Forms;
 using System.ComponentModel;
