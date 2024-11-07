@@ -247,5 +247,6 @@ namespace Products_and_Parts
         {
             Inventory.CloseInventoryForm();
         }
+
     }
 }

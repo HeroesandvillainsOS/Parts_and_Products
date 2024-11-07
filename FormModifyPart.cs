@@ -26,6 +26,7 @@ namespace Products_and_Parts
             int selectedMachineID;
             string selectedCompanyName;
 
+
             // Uses the Part LookUp method to determine if the Part is InHouse or Outsourced
             Part part = Inventory.LookupPart(selectedPartID);
 
@@ -34,7 +35,8 @@ namespace Products_and_Parts
                 // Sets the selectedMachineID variable to the Part's Machine ID
                 selectedMachineID = inHousePart.MachineID;
                 // Ticks the InHouse radio button
-                radioBtnInHouse_ModifyPart.Enabled = true;             
+                radioBtnInHouse_ModifyPart.Checked = true;
+                radioBtnOutsourced_ModifyPart.Checked = false;
                 // Sets the Modify Part text boxes to the values of the currently selected Part
                 textBoxID_ModifyPart.Text = selectedPartID.ToString();
                 textBoxName_ModifyPart.Text = selectedName;
@@ -50,7 +52,8 @@ namespace Products_and_Parts
                 // Sets the selectedMachineID variable to the Part's Company Name
                 selectedCompanyName = outsourcedPart.CompanyName;
                 // Ticks the Outsourced radio button
-                radioBtnOutsourced_ModifyPart.Enabled = true;
+                radioBtnOutsourced_ModifyPart.Checked = true;
+                radioBtnInHouse_ModifyPart.Checked = false;
                 // Sets the text box values
                 textBoxID_ModifyPart.Text = selectedPartID.ToString();
                 textBoxName_ModifyPart.Text = selectedName;
@@ -232,21 +235,26 @@ namespace Products_and_Parts
             // Finds the selected Part's index position
             int indexPosition = Inventory.GetIndexPositionWithPartID(Inventory.AllParts, currentID);
             // Removes the old Part from the Binding List
-            Inventory.AllParts.RemoveAt(currentID);
-            // Adds the Part back into the Binding List
+            Inventory.AllParts.RemoveAt(indexPosition);
+            // Stores the Part's new details
+            Part updatedPart;
+
+            // Turns the old Part into a new InHouse Part
             if (radioBtnInHouse_ModifyPart.Checked == true)
             {
                 newMachineID = int.Parse(textBoxMachineID_ModifyPart.Text);
-                Part updatedPart = new InHouse(currentID, newName, newPrice, newInventory, newMin, newMax, newMachineID);
-                Inventory.AllParts.Insert(indexPosition, updatedPart);
+                updatedPart = new InHouse(currentID, newName, newPrice, newInventory, newMin, newMax, newMachineID);             
             }
 
-            if (radioBtnOutsourced_ModifyPart.Checked == true)
+            // Turns the old Part into a new Outsourced Part
+            else
             {
                 newCompanyName = textBoxMachineID_ModifyPart.Text;
-                Part updatedPart = new Outsourced(currentID, newName, newPrice, newInventory, newMin, newMax, newCompanyName);
-                Inventory.AllParts.Insert(indexPosition, updatedPart);
+                updatedPart = new Outsourced(currentID, newName, newPrice, newInventory, newMin, newMax, newCompanyName);
             }
+
+            // Adds the Part back into the Binding List
+            Inventory.AllParts.Insert(indexPosition, updatedPart);
 
             // Closes the window
             this.Close();
