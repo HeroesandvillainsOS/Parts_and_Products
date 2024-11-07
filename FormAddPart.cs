@@ -1,4 +1,4 @@
-﻿// This script handles the logic for the Add Parts form
+﻿// This script handles the logic for the Add Part form
 
 using System;
 using System.Drawing;

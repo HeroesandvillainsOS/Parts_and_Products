@@ -1,4 +1,6 @@
-﻿using System;
+﻿// This script handles the logic for the Add Product form
+
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;

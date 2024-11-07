@@ -1,4 +1,6 @@
-﻿using System;
+﻿// This script handles the logic for the Modify Part form
+
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -32,8 +34,7 @@ namespace Products_and_Parts
                 // Sets the selectedMachineID variable to the Part's Machine ID
                 selectedMachineID = inHousePart.MachineID;
                 // Ticks the InHouse radio button
-                radioBtnInHouse_ModifyPart.Enabled = true;
-                radioBtnOutsourced_ModifyPart.Enabled = false;
+                radioBtnInHouse_ModifyPart.Enabled = true;             
                 // Sets the Modify Part text boxes to the values of the currently selected Part
                 textBoxID_ModifyPart.Text = selectedPartID.ToString();
                 textBoxName_ModifyPart.Text = selectedName;
@@ -50,7 +51,6 @@ namespace Products_and_Parts
                 selectedCompanyName = outsourcedPart.CompanyName;
                 // Ticks the Outsourced radio button
                 radioBtnOutsourced_ModifyPart.Enabled = true;
-                radioBtnInHouse_ModifyPart.Enabled= false;
                 // Sets the text box values
                 textBoxID_ModifyPart.Text = selectedPartID.ToString();
                 textBoxName_ModifyPart.Text = selectedName;
