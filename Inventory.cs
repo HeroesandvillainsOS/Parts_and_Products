@@ -29,7 +29,7 @@ namespace Products_and_Parts
             AllParts.Add(new InHouse(1, "Battery", 49.99m, 3, 1, 5, 00200));
             AllParts.Add(new Outsourced(2, "Glass Display", 199.99m, 5, 1, 6, "Apple"));
             AllParts.Add(new Outsourced(3, "Wireless Mouse", 79.99m, 5, 2, 8, "Logitech"));
-            AllParts.Add(new Outsourced(4, "Charger Cable", 29.99m, 11, 20, 10, "Anker"));
+            AllParts.Add(new Outsourced(4, "Charger Cable", 29.99m, 13, 10, 20, "Anker"));
 
             // Represents the initial list of Associated Parts with Products
             Product.ProductsWithAssociatedParts.Add(new ProductPartAssociation(0, 0));
@@ -39,29 +39,9 @@ namespace Products_and_Parts
             Product.AssociatedParts.Add(new InHouse(0, "Power Supply", 299.99m, 15, 8, 30, 00100));
             Product.AssociatedParts.Add(new Outsourced(2, "Glass Display", 199.99m, 5, 1, 6, "Apple"));
             Product.AssociatedParts.Add(new Outsourced(3, "Wireless Mouse", 79.99m, 5, 2, 8, "Logitech"));
-
-            //Product.PartsAssociatedWithThisProduct.Add(new InHouse(0, "Power Supply", 299.99m, 15, 8, 30, 00100));
         }
 
         // METHODS RELATED TO PRODUCTS
-
-        // Opens the Add Products form when the "Add" button is clicked
-        public static void OpenAddProductsForm()
-        {
-            // Keeps a running List of taken productID's every time the Add Products form is open
-            for (int i = 0; i < Inventory.Products.Count; i++)
-                takenProductIds.Add(i);
-
-            FormAddProduct addProductForm = new FormAddProduct();
-            addProductForm.Show();
-        }
-
-        // Opens the Modify Product form when the "Modify" button is clicked
-        public static void OpenModifyProductsForm()
-        {
-            FormModifyProduct modifyProductForm = new FormModifyProduct();
-            modifyProductForm.Show();
-        }
 
         // Adds a new Product item to the Products Binding List
         public static void AddProduct(Product product)
@@ -71,7 +51,7 @@ namespace Products_and_Parts
 
         public static bool RemoveProduct(int productID)
         {
-            // Ensures the app fails gracefully in the event an invalid Product (index) is (somehow) selected 
+            // Ensures the app fails gracefully in the event an invalid Product index is selected 
             if (productID >= 0)
                 return true;
             else
@@ -140,24 +120,6 @@ namespace Products_and_Parts
         }
 
         // METHODS RELATED TO PARTS
-
-        // Opens the Add Parts form when the "Add" button is clicked
-        public static void OpenAddPartsForm()
-        {
-            // Keeps a running List of taken partID's every time the Add Parts form is open
-            for (int i = 0; i < Inventory.AllParts.Count; i++)
-                takenPartIds.Add(i);
-
-            FormAddPart addPartForm = new FormAddPart();
-            addPartForm.Show();
-        }
-
-        // Opens the Modify Parts form when the "Modify" button is clicked
-        public static void OpenModifyPartsForm()
-        {
-            FormModifyPart modifyPartForm = new FormModifyPart();
-            modifyPartForm.Show();
-        }
 
         // Adds a new Part item to the AllParts Binding List
         public static void AddPart(Part part)

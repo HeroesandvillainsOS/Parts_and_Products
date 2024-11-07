@@ -206,6 +206,9 @@ namespace Products_and_Parts
             // Calls the AddPart method, which adds the new part to the AllParts Binding List
             Inventory.AddPart(newPart);
 
+            // Adds the new Product ID to the takenProductIDs Binding List
+            Inventory.takenPartIds.Add(newPartID);
+
             // Closes the Add Part form once a part is added
             this.Close();
         }
