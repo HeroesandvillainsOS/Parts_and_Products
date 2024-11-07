@@ -266,6 +266,9 @@ namespace Products_and_Parts
                 Product newProduct = new Product(newProductID, newProductName, newPrice, newInventory, newMax, newMin);
                 Inventory.AddProduct(newProduct);
 
+                // Adds the new Product ID to the takenProductIDs Binding List
+                Inventory.takenProductIds.Add(newProductID);
+
                 // SAVES THE PART SIDE OF THE FORM
 
                 // Removes all previous occurrences of the current Product & its associated Parts from the "ProductsWithAssociatedParts" Binding List 
