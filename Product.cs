@@ -5,9 +5,6 @@ namespace Products_and_Parts
 {
     internal class Product
     {
-        // Maintains a list of every part that is associated with a product
-        public static BindingList<Part> AssociatedParts { get; set; } = new BindingList<Part>();
-
         // Temporarily holds a list of parts to associate with the selected product,
         // ... allowing the user to either "save" them to the "ProductsWithAssociatedParts" Binding List,
         // ... or "cancel" the pairing.
@@ -37,46 +34,6 @@ namespace Products_and_Parts
             InStock = inStock;
             Min = min;
             Max = max;
-        }
-
-        // Adds a Part to the Associated Parts Binding List
-        public static void AddAssociatedPart(Part part)
-        {
-            if (AssociatedParts.Contains(part))
-            {
-                MessageBox.Show("This Part is already associated with at least one Product", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            else
-                AssociatedParts.Add(part);
-        }
-
-        // Returns true if a Part matching the partID exits in the Associated Parts Binding List
-        public static bool RemoveAssociatedPart(int partID)
-        {
-            foreach (Part associatedPart in AssociatedParts)
-            {
-                if (associatedPart.PartID == partID)
-                    return true;
-            }
-
-            MessageBox.Show("No Part is associated with this Part ID.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            return false;
-        }
-
-        // Returns a Part if a matching one exists in the Associated Parts Binding List
-        public static Part LookupAssociatedPart(int partID)
-        {
-            foreach (Part associatedPart in AssociatedParts)
-            {
-                if (associatedPart.PartID == partID)
-                {
-                    Part returnedPart = Inventory.LookupPart(partID);
-                    return returnedPart;
-                }
-            }
-            return null;
         }
     }
 }
