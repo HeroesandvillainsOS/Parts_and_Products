@@ -34,11 +34,6 @@ namespace Products_and_Parts
             // Represents the initial list of Associated Parts with Products
             Product.ProductsWithAssociatedParts.Add(new ProductPartAssociation(0, 0));
             Product.ProductsWithAssociatedParts.Add(new ProductPartAssociation(0, 3));
-
-            // Represents the Initial List of Parts that are associated with products
-            Product.AssociatedParts.Add(new InHouse(0, "Power Supply", 299.99m, 15, 8, 30, 00100));
-            Product.AssociatedParts.Add(new Outsourced(2, "Glass Display", 199.99m, 5, 1, 6, "Apple"));
-            Product.AssociatedParts.Add(new Outsourced(3, "Wireless Mouse", 79.99m, 5, 2, 8, "Logitech"));
         }
 
         // METHODS RELATED TO PRODUCTS
@@ -84,28 +79,6 @@ namespace Products_and_Parts
                 }
             }
             return null;
-        }
-
-        // Saves the Product information to the Inventory.Products Binding List
-        public static void UpdateProduct(int productID, Product product)
-        {
-            Product currentProduct = Inventory.LookupProduct(productID);
-
-            if (currentProduct ==  null)
-                MessageBox.Show("No Products with this Product ID could be found.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            
-            else
-            {
-                // Deletes the previous reference to the Product in the Inventory.Products Binding List
-                foreach (Product individualProduct in Inventory.Products)
-                {
-                    if (individualProduct.ProductID == productID)
-                        Inventory.Products.Remove(individualProduct);
-                }
-
-                // Saves the Product's new information to the Inventory.Products Binding List
-                Inventory.Products.Add(currentProduct);
-            }
         }
 
         // Returns an index position of a Product when a productID is passed in
@@ -181,29 +154,7 @@ namespace Products_and_Parts
                 }
             }
             return null;
-        }
-
-        // Saves the Part information to the Inventory.AllParts Binding List
-        public static void UpdatePart(int partID, Part part)
-        {
-            Part currentPart = Inventory.LookupPart(partID);
-
-            if (currentPart == null)
-                MessageBox.Show("No Parts with this Part ID could be found.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            else
-            {
-                // Deletes the previous reference to the Part in the Inventory.AllParts Binding List
-                foreach (Part individualPart in Inventory.AllParts)
-                {
-                    if (individualPart.PartID == partID)
-                        Inventory.AllParts.Remove(individualPart);
-                }
-
-                // Saves the Part's new information to the Inventory.AllParts Binding List
-                Inventory.AllParts.Add(currentPart);
-            }
-        }
+        } 
 
         // Returns an index position of a Product when a productID is passed in
         public static int GetIndexPositionWithPartID(BindingList<Part> list, int partID)
